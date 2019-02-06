@@ -5,14 +5,21 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int PlayerNumber;
+    
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
+    private Transform _transform;
+    private Weapon _carriedWeapon;
+    private GameObject _carryPoint;
+    private bool _isCarrying = false;
 
     internal void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _transform = GetComponent<Transform>();
+        _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
 
         AssignPlayerColor();
     }
@@ -26,6 +33,22 @@ public class Player : MonoBehaviour
     {
         // Placeholder 
         _rb.velocity += Vector2.right * Input.GetAxis( "Horizontal" + PlayerNumber );
+    }
+
+    /// <summary>
+    /// Attempts to pick up a <see cref="Weapon"/>
+    /// </summary>
+    /// <returns>If pick up was successful.</returns>
+    public void PickUp( Weapon weapon )
+    {
+        if ( _isCarrying || weapon.IsCarried ) return;
+        _carriedWeapon = weapon;
+        _isCarrying = true;
+        weapon.IsCarried = true;
+
+        weapon.gameObject.transform.parent = _transform;
+        weapon.gameObject.transform.position = _carryPoint.transform.position;
+        weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
     }
 
     /// <summary>
@@ -52,7 +75,18 @@ public class Player : MonoBehaviour
                 playerColor = Color.white;
                 break;
         }
-
         _spriteRenderer.color = playerColor;
+    }
+
+    /// <summary>
+    /// Trigger is used to check for item pickup
+    /// </summary>
+    private void OnTriggerEnter2D( Collider2D other )
+    {
+        var otherWeapon = other.gameObject.GetComponent<Weapon>();
+        if ( otherWeapon )
+        {
+            PickUp( otherWeapon );
+        }
     }
 }

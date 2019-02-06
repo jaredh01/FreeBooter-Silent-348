@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsCarried;
+
+    private Transform _transform;
+    
+
+    internal void Start()
     {
-        
+        _transform = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
