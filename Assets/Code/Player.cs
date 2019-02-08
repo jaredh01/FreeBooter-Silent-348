@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         AssignPlayerColor();
     }
 
-    internal void Update()
+    internal void FixedUpdate()
     {
         HandleInput();
     }
@@ -25,7 +25,15 @@ public class Player : MonoBehaviour
     private void HandleInput()
     {
         // Placeholder 
-        _rb.velocity += Vector2.right * Input.GetAxis( "Horizontal" + PlayerNumber );
+        if (Input.GetAxis("Horizontal" + PlayerNumber) >= 0.2 || Input.GetAxis("Horizontal" + PlayerNumber) <= -0.2)
+        {
+            _rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
+        }
+        
+        if (Input.GetButtonDown("AButton" + PlayerNumber))
+        {
+            _rb.velocity += 5 * Vector2.up;
+        }
     }
 
     /// <summary>
