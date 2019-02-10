@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int PlayerNumber;
+    public float Health;
     
 
     private Rigidbody2D _rb;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private GameObject _carryPoint;
     private Respawner _respawner;
     private bool _isCarrying = false;
+    private float _initialHealth;
 
     internal void Start()
     {
@@ -23,13 +25,13 @@ public class Player : MonoBehaviour
         _respawner = GetComponent<Respawner>();
         _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
 
+        _initialHealth = Health;
         AssignPlayerColor();
     }
 
     internal void Update()
     {
         HandleInput();
-
     }
 
     private void HandleInput()
@@ -68,16 +70,17 @@ public class Player : MonoBehaviour
     /// Attempts to pick up a <see cref="Weapon"/>
     /// </summary>
     /// <returns>If pick up was successful.</returns>
-    public void PickUp(Weapon weapon)
+    public void PickUp( Weapon weapon )
     {
-        if (_isCarrying || weapon.IsCarried) return;
+        if (_isCarrying || weapon.IsCarried ) return;
         _carriedWeapon = weapon;
         _isCarrying = true;
         weapon.IsCarried = true;
+        weapon.CarryingPlayer = this;
 
-        weapon.gameObject.transform.parent = _transform;
+        weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
-        weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
+        //weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
     }
 
     /// <summary>
@@ -88,6 +91,7 @@ public class Player : MonoBehaviour
     {
         if (!_isCarrying) return false;
         _carriedWeapon.IsCarried = false;
+        _carriedWeapon.CarryingPlayer = null;
         _carriedWeapon.gameObject.transform.parent = null;
         _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
         _isCarrying = false;
@@ -105,7 +109,40 @@ public class Player : MonoBehaviour
         if (!_isCarrying) return;
         //for now, sword only:
         Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
-        _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
+        _carriedWeapon.gameObject.transform.localRotation = change; //isn't rotating properly
+        _carriedWeapon.UseWeapon();
+    }
+
+    /// <summary>
+    /// Take damage from another <see cref="Player"/>, and <see cref="DieAndRespawn"/> if health dips below 0.
+    /// </summary>
+    public void TakeDamage( float damage, Player attacker )
+    {
+        if ( Health < 0 ) return;
+        Health -= damage;
+        if ( Health <= 0 )
+        {
+            DieAndRespawn();
+        }
+    }
+
+    /// <summary>
+    /// Remove the player from the scene temporarily, and schedule an invocation of <see cref="Respawn"/>.
+    /// </summary>
+    private void DieAndRespawn()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        Invoke( "Respawn", 2f );
+    }
+
+    /// <summary>
+    /// Function that calls for a respawn. Necessary for Invoke.
+    /// </summary>
+    private void Respawn()
+    {
+        _respawner.TryRespawn( gameObject );
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        Health = _initialHealth;
     }
 
     /// <summary>
@@ -133,17 +170,5 @@ public class Player : MonoBehaviour
                 break;
         }
         _spriteRenderer.color = playerColor;
-    }
-
-    /// <summary>
-    /// Trigger is used to check for item pickup
-    /// </summary>
-    private void OnTriggerEnter2D( Collider2D other )
-    {
-        //var otherWeapon = other.gameObject.GetComponent<Weapon>();
-        //if ( otherWeapon )
-        //{
-        //    PickUp( otherWeapon );
-        //}
     }
 }
