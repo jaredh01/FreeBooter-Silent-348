@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private Transform _transform;
     private Weapon _carriedWeapon;
     private GameObject _carryPoint;
+    private Respawner _respawner;
     private bool _isCarrying = false;
 
     internal void Start()
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _transform = GetComponent<Transform>();
+        _respawner = GetComponent<Respawner>();
         _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
 
         AssignPlayerColor();
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     internal void Update()
     {
         HandleInput();
+
     }
 
     private void HandleInput()
