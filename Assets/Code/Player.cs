@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
+    private float _maxSpeed = 10;
 
     internal void Start()
     {
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
     internal void FixedUpdate()
     {
         HandleInput();
+        ClipHorizontalSpeed();
+
     }
 
     private void HandleInput()
@@ -29,10 +32,22 @@ public class Player : MonoBehaviour
         {
             _rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
         }
+        else
+        {
+            _rb.velocity = .8f * _rb.velocity;
+        }
         
         if (Input.GetButtonDown("AButton" + PlayerNumber))
         {
             _rb.velocity += 5 * Vector2.up;
+        }
+    }
+
+    private void ClipHorizontalSpeed()
+    {
+        if (Mathf.Abs(_rb.velocity.x) > _maxSpeed)
+        {
+            _rb.velocity = _maxSpeed * _rb.velocity.normalized;
         }
     }
 
