@@ -33,15 +33,41 @@ public class Player : MonoBehaviour
     {
         // Placeholder 
         _rb.velocity += Vector2.right * Input.GetAxis( "Horizontal" + PlayerNumber );
+
+        //when y button is pressed, check circle collider and weapon
+        if (Input.GetButtonDown("YButton" + PlayerNumber))
+        {
+            if (!DropWeapon())
+            {
+                Collider2D[] others = Physics2D.OverlapCircleAll(_rb.position, 1); // we can tweak this radius as necessary
+                for (int i = 0; i < others.Length; i++) // what do we do about multiple weapons being in the circle collider? rn this will just get the first one
+                {
+                    Weapon otherWeapon = others[i].gameObject.GetComponent<Weapon>();
+                    if (otherWeapon)
+                    {
+                        PickUp(otherWeapon);
+                    }
+                }
+
+            }
+        }
+
+        //when x button is pressed, swing weapon
+        if (Input.GetButtonDown("XButton" + PlayerNumber))
+        {
+            UseWeapon();
+        }
+
+
     }
 
     /// <summary>
     /// Attempts to pick up a <see cref="Weapon"/>
     /// </summary>
     /// <returns>If pick up was successful.</returns>
-    public void PickUp( Weapon weapon )
+    public void PickUp(Weapon weapon)
     {
-        if ( _isCarrying || weapon.IsCarried ) return;
+        if (_isCarrying || weapon.IsCarried) return;
         _carriedWeapon = weapon;
         _isCarrying = true;
         weapon.IsCarried = true;
@@ -49,6 +75,34 @@ public class Player : MonoBehaviour
         weapon.gameObject.transform.parent = _transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
         weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
+    }
+
+    /// <summary>
+    /// If player is carrying a <see cref="Weapon"/>, drop it
+    /// </summary>
+    /// <returns> Returns true if weapon was dropped</returns>
+    public bool DropWeapon()
+    {
+        if (!_isCarrying) return false;
+        _carriedWeapon.IsCarried = false;
+        _carriedWeapon.gameObject.transform.parent = null;
+        _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
+        _isCarrying = false;
+        _carriedWeapon = null;
+        return true;
+
+    }
+
+    /// <summary>
+    /// If player is carrying a <see cref="Weapon"/>, use it
+    /// For now this is just swinging a sword, can be expanded for other weapons
+    /// </summary>
+    public void UseWeapon()
+    {
+        if (!_isCarrying) return;
+        //for now, sword only:
+        Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
+        _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
     }
 
     /// <summary>
@@ -83,10 +137,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter2D( Collider2D other )
     {
-        var otherWeapon = other.gameObject.GetComponent<Weapon>();
-        if ( otherWeapon )
-        {
-            PickUp( otherWeapon );
-        }
+        //var otherWeapon = other.gameObject.GetComponent<Weapon>();
+        //if ( otherWeapon )
+        //{
+        //    PickUp( otherWeapon );
+        //}
     }
 }
