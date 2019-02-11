@@ -92,11 +92,11 @@ public class Player : MonoBehaviour
 
     private void CheckForFlip()
     {
-        if ( _spriteRenderer.flipX && _rb.velocity.x > 0.1f )
+        if ( _rb.velocity.x > 0.1f )
         {
             transform.rotation = Quaternion.Euler(0, 0f, 0);
         }
-        else if ( !_spriteRenderer.flipX && _rb.velocity.x < -0.1f )
+        else if ( _rb.velocity.x < -0.1f )
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
