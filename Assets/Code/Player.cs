@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int PlayerNumber;
+    public float Health;
     
 
     private Rigidbody2D _rb;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private GameObject _carryPoint;
     private Respawner _respawner;
     private bool _isCarrying = false;
+    private float _initialHealth;
 
     internal void Start()
     {
@@ -23,13 +25,13 @@ public class Player : MonoBehaviour
         _respawner = GetComponent<Respawner>();
         _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
 
+        _initialHealth = Health;
         AssignPlayerColor();
     }
 
-    internal void Update()
+    internal void FixedUpdate()
     {
         HandleInput();
-
     }
 
     private void HandleInput()
@@ -60,15 +62,8 @@ public class Player : MonoBehaviour
         {
             if (_isCarrying)
             {
-                //_carryPoint.transform.Rotate(Vector3.forward * 90);
                 _carriedWeapon.UseWeapon(); // SUPPOSEDLY rotates but actually squishes
             }
-            else
-            {
-                Weapon w = FindObjectOfType<Weapon>(); //rotates, but only when you're not holding the weapon help
-                w.UseWeapon();
-            }
-            
         }
 
 
@@ -104,6 +99,39 @@ public class Player : MonoBehaviour
         _carriedWeapon = null;
         return true;
 
+    }
+
+    /// <summary>
+    /// Take damage from another <see cref="Player"/>, and <see cref="DieAndRespawn"/> if health dips below 0.
+    /// </summary>
+    public void TakeDamage(float damage, Player attacker)
+    {
+        if (Health < 0) return;
+        Health -= damage;
+        if (Health <= 0)
+        {
+            DieAndRespawn();
+        }
+    }
+
+    /// <summary>
+    /// Remove the player from the scene temporarily, and schedule an invocation of <see cref="Respawn"/>.
+    /// </summary>
+    private void DieAndRespawn()
+    {
+        DropWeapon();
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        Invoke("Respawn", 2f);
+    }
+
+    /// <summary>
+    /// Function that calls for a respawn. Necessary for Invoke.
+    /// </summary>
+    private void Respawn()
+    {
+        _respawner.TryRespawn(gameObject);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        Health = _initialHealth;
     }
 
     /// <summary>
