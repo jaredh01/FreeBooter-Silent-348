@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
         weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
-        weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
+        //weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
     }
 
     /// <summary>
@@ -107,6 +107,9 @@ public class Player : MonoBehaviour
     public void UseWeapon()
     {
         if (!_isCarrying) return;
+        //for now, sword only:
+        Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
+        _carriedWeapon.gameObject.transform.localRotation = change; //isn't rotating properly
         _carriedWeapon.UseWeapon();
     }
 
@@ -128,7 +131,6 @@ public class Player : MonoBehaviour
     /// </summary>
     private void DieAndRespawn()
     {
-        DropWeapon();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Invoke( "Respawn", 2f );
     }
