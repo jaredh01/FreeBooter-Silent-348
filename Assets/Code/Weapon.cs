@@ -37,9 +37,10 @@ public class Weapon : MonoBehaviour
     private void UnuseWeapon()
     {
         _isActive = false;
+        gameObject.transform.Rotate(0,0,0);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         var temp = other.GetComponent<Player>();
         if (_isActive && temp && !(temp == CarryingPlayer))

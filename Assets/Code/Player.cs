@@ -94,11 +94,11 @@ public class Player : MonoBehaviour
     {
         if ( _spriteRenderer.flipX && _rb.velocity.x > 0.1f )
         {
-            _spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(0, 0f, 0);
         }
         else if ( !_spriteRenderer.flipX && _rb.velocity.x < -0.1f )
         {
-            _spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
     }
 
