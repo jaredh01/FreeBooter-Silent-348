@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
         Invoke("UnuseWeapon", 1f);
     }
 
-    private void UnuseWeapon()
+    public void UnuseWeapon()
     {
         _isActive = false;
         gameObject.transform.Rotate(0,0,-90);

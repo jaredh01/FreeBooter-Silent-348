@@ -16,7 +16,9 @@ public class Player : MonoBehaviour
     private Respawner _respawner;
     private bool _isCarrying = false;
     private float _initialHealth;
-    private static float _maxSpeed = 10;
+    private static float _maxSpeed = 10f;
+    private static float _jumpHeight = 15f;
+    private static float _epsilon = 0.1f;
 
     internal void Start()
     {
@@ -46,12 +48,12 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _rb.velocity = .8f * _rb.velocity;
+            _rb.velocity = new Vector2(.8f * _rb.velocity.x, _rb.velocity.y);
         }
         
-        if (Input.GetButtonDown("AButton" + PlayerNumber))
+        if (Input.GetButtonDown("AButton" + PlayerNumber) && Mathf.Abs(_rb.velocity.y) < _epsilon)
         {
-            _rb.velocity += 15 * Vector2.up;
+            _rb.velocity += _jumpHeight * Vector2.up;
         }
         
         //when x button is pressed, swing weapon
