@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private Respawner _respawner;
     private bool _isCarrying = false;
     private float _initialHealth;
-    private float _maxSpeed = 10;
+    private static float _maxSpeed = 10;
 
     internal void Start()
     {
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
     {
         if (Mathf.Abs(_rb.velocity.x) > _maxSpeed)
         {
-            _rb.velocity = _maxSpeed * _rb.velocity.normalized;
+            _rb.velocity = new Vector2(_maxSpeed * Mathf.Sign(_rb.velocity.x), _rb.velocity.y);
         }
     }
 
