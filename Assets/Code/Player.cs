@@ -58,7 +58,17 @@ public class Player : MonoBehaviour
         //when x button is pressed, swing weapon
         if (Input.GetButtonDown("XButton" + PlayerNumber))
         {
-            UseWeapon();
+            if (_isCarrying)
+            {
+                //_carryPoint.transform.Rotate(Vector3.forward * 90);
+                _carriedWeapon.UseWeapon(); // SUPPOSEDLY rotates but actually squishes
+            }
+            else
+            {
+                Weapon w = FindObjectOfType<Weapon>(); //rotates, but only when you're not holding the weapon help
+                w.UseWeapon();
+            }
+            
         }
 
 
@@ -100,13 +110,13 @@ public class Player : MonoBehaviour
     /// If player is carrying a <see cref="Weapon"/>, use it
     /// For now this is just swinging a sword, can be expanded for other weapons
     /// </summary>
-    public void UseWeapon()
-    {
-        if (!_isCarrying) return;
-        //for now, sword only:
-        Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
-        _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
-    }
+    //public void UseWeapon()
+    //{
+    //    if (!_isCarrying) return;
+    //    //for now, sword only:
+    //    Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
+    //    _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
+    //}
 
     /// <summary>
     /// Modifies the player's <see cref="SpriteRenderer.color"/>, based on <see cref="PlayerNumber"/>
