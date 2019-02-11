@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     {
         HandleInput();
         ClipHorizontalSpeed();
-
+        CheckForFlip();
     }
 
     private void HandleInput()
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         
         if (Input.GetButtonDown("AButton" + PlayerNumber))
         {
-            _rb.velocity += 5 * Vector2.up;
+            _rb.velocity += 15 * Vector2.up;
         }
     }
 
@@ -48,6 +48,18 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(_rb.velocity.x) > _maxSpeed)
         {
             _rb.velocity = _maxSpeed * _rb.velocity.normalized;
+        }
+    }
+
+    private void CheckForFlip()
+    {
+        if ( _spriteRenderer.flipX && _rb.velocity.x > 0.1f )
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else if ( !_spriteRenderer.flipX && _rb.velocity.x < -0.1f )
+        {
+            _spriteRenderer.flipX = true;
         }
     }
 
