@@ -8,12 +8,14 @@ public class Weapon : MonoBehaviour
     public Player CarryingPlayer;
 
     private Transform _transform;
+    private SpriteRenderer _spriteRenderer;
     private bool _isActive = false;
     
 
     internal void Start()
     {
         _transform = GetComponent<Transform>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -29,7 +31,8 @@ public class Weapon : MonoBehaviour
         Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
         // this.gameObject.transform.rotation = change; //isn't rotating properly
         //this.gameObject.transform.Rotate(Vector3.forward * 90);
-        this.gameObject.transform.Rotate(0, 0, 90);
+        //this.gameObject.transform.Rotate(0, 0, 90);
+        _spriteRenderer.color = Color.red;
 
         Invoke("UnuseWeapon", 1f);
     }
@@ -37,7 +40,8 @@ public class Weapon : MonoBehaviour
     public void UnuseWeapon()
     {
         _isActive = false;
-        gameObject.transform.Rotate(0,0,-90);
+        //gameObject.transform.Rotate(0,0,-90);
+        _spriteRenderer.color = Color.magenta;
     }
 
     private void OnTriggerStay2D(Collider2D other)

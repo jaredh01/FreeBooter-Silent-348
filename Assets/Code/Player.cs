@@ -127,6 +127,7 @@ public class Player : MonoBehaviour
     public bool DropWeapon()
     {
         if (!_isCarrying) return false;
+        _carriedWeapon.UnuseWeapon();
         _carriedWeapon.IsCarried = false;
         _carriedWeapon.gameObject.transform.parent = null;
         _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
@@ -163,6 +164,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Respawn()
     {
+        _rb.velocity = Vector2.zero;
         _respawner.TryRespawn(gameObject);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Health = _initialHealth;

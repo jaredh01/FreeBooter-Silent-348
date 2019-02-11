@@ -24,6 +24,6 @@ public class Respawner : MonoBehaviour
         var point = RespawnPoint.FindBestPoint().transform;
         var rigidBody = GetComponent<Rigidbody2D>();
         var playerHeight = GetComponent<Renderer>().bounds.size.y;
-        rigidBody.MovePosition( point.position + 0.5f * playerHeight * Vector3.up );
+        rigidBody.position = point.position + 0.5f * playerHeight * Vector3.up;
     }
 }
