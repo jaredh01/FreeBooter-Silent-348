@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private bool _isCarrying = false;
     private float _initialHealth;
     private static float _maxSpeed = 10f;
-    private static float _jumpHeight = 15f;
+    private static float _jumpHeight = 25f;
     private static float _epsilon = 0.1f;
 
     internal void Start()
@@ -35,22 +35,24 @@ public class Player : MonoBehaviour
     internal void FixedUpdate()
     {
         HandleInput();
-        ClipHorizontalSpeed();
+        //ClipHorizontalSpeed();
         CheckForFlip();
     }
 
     private void HandleInput()
     {
-        // Placeholder 
         if (Input.GetAxis("Horizontal" + PlayerNumber) >= 0.2 || Input.GetAxis("Horizontal" + PlayerNumber) <= -0.2)
         {
-            _rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
+            //_rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
+            _rb.velocity = new Vector2( _maxSpeed * Input.GetAxis("Horizontal" + PlayerNumber), _rb.velocity.y);
         }
         else
         {
             _rb.velocity = new Vector2(.8f * _rb.velocity.x, _rb.velocity.y);
         }
         
+        // If the a button is pressed and the player is not moving vertically (implying they are on
+        // the ground) the player jumps.
         if (Input.GetButtonDown("AButton" + PlayerNumber) && Mathf.Abs(_rb.velocity.y) < _epsilon)
         {
             _rb.velocity += _jumpHeight * Vector2.up;
@@ -94,11 +96,11 @@ public class Player : MonoBehaviour
 
     private void CheckForFlip()
     {
-        if ( _rb.velocity.x > 0.1f )
+        if ( _rb.velocity.x > _epsilon )
         {
             transform.rotation = Quaternion.Euler(0, 0f, 0);
         }
-        else if ( _rb.velocity.x < -0.1f )
+        else if ( _rb.velocity.x < -_epsilon )
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
