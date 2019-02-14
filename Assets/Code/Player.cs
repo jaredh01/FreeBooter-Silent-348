@@ -148,6 +148,8 @@ public class Player : MonoBehaviour
         Health -= damage;
         if (Health <= 0)
         {
+            if ( attacker != null )
+            FindObjectOfType<ScoreManager>().ScorePoints( 1, attacker.PlayerNumber );
             DieAndRespawn();
         }
     }
