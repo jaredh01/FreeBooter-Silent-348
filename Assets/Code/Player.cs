@@ -17,8 +17,9 @@ public class Player : MonoBehaviour
     private bool _isCarrying = false;
     private float _initialHealth;
     private static float _maxSpeed = 10f;
-    private static float _jumpHeight = 25f;
+    private static float _jumpHeight = 23f;
     private static float _epsilon = 0.1f;
+    private static float _deadZone = 0.3f;
 
     internal void Start()
     {
@@ -41,14 +42,14 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetAxis("Horizontal" + PlayerNumber) >= 0.2 || Input.GetAxis("Horizontal" + PlayerNumber) <= -0.2)
+        if (Input.GetAxis("Horizontal" + PlayerNumber) >= _deadZone || Input.GetAxis("Horizontal" + PlayerNumber) <= -_deadZone)
         {
             //_rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
             _rb.velocity = new Vector2( _maxSpeed * Input.GetAxis("Horizontal" + PlayerNumber), _rb.velocity.y);
         }
         else
         {
-            _rb.velocity = new Vector2(.8f * _rb.velocity.x, _rb.velocity.y);
+            _rb.velocity = new Vector2(.5f * _rb.velocity.x, _rb.velocity.y);
         }
         
         // If the a button is pressed and the player is not moving vertically (implying they are on
