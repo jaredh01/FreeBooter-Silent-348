@@ -21,6 +21,9 @@ ExportedObj/
 *.unityproj
 *.booproj
 *.ide
+*.ide-shm
+*.ide-wal
+*.lock
 
 # ============ #
 # OS generated #
