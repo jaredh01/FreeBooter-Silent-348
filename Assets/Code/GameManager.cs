@@ -78,14 +78,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// A little animation on starting the game
+    /// A little animation on starting the game. Will need updated frequently.
     /// </summary>
     private IEnumerator StartGameAnimation()
     {
         while ( _startGameDelay > 0f )
         {
+            _statusText.text = string.Format("Starting in: {0}", Mathf.Ceil(_startGameDelay));
             _startGameDelay -= Time.unscaledDeltaTime;
-            _statusText.text = string.Format( "Starting in: {0}", Mathf.Floor( _startGameDelay ) );
+
 
             if ( _startGameDelay > 4f  || _startGameDelay < 1f ) yield return null;
             var slerpVar = ( 4f - _startGameDelay ) / 3f;
@@ -96,6 +97,8 @@ public class GameManager : MonoBehaviour
         }
 
         _statusText.text = "";
+        _statusText.fontSize = 24;
+        _statusText.color = Color.red;
         Time.timeScale = 1;
 
         while ( _startGameDelay > -0.7f )
@@ -106,6 +109,8 @@ public class GameManager : MonoBehaviour
         }
 
         _statusText.text = "";
+        _statusText.fontSize = 20;
+        _statusText.color = Color.white;
     }
 
     /// <summary>
