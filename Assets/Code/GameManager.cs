@@ -16,11 +16,8 @@ public class GameManager : MonoBehaviour
     // Currently, start a round immediately
     private void Start()
     {
-        _timeRemaining = RoundLength;
-        _statusText = GameObject.FindGameObjectWithTag( "Status" ).GetComponent<Text>();
-        _timeText = GameObject.FindGameObjectWithTag( "Time" ).GetComponent<Text>();
-
-        _timeText.text = "Time Left: " + string.Format( "{0}:{1:00}", (int) _timeRemaining / 60, (int) _timeRemaining % 60 );
+        SetGameTimer();
+        SetActivePlayers();
     }
 
     private void Update()
@@ -47,6 +44,28 @@ public class GameManager : MonoBehaviour
         _timeRemaining -= Time.fixedDeltaTime;
         _timeText.text = "Time Left: " + string.Format("{0}:{1:00}", (int)_timeRemaining / 60, (int)_timeRemaining % 60);
         if ( _timeRemaining < 0 ) GameOver();
+    }
+
+    /// <summary>
+    /// Helper function for configuring the game timer
+    /// </summary>
+    private void SetGameTimer()
+    {
+        _timeRemaining = RoundLength;
+        _statusText = GameObject.FindGameObjectWithTag("Status").GetComponent<Text>();
+        _timeText = GameObject.FindGameObjectWithTag("Time").GetComponent<Text>();
+        _timeText.text = "Time Left: " + string.Format("{0}:{1:00}", (int)_timeRemaining / 60, (int)_timeRemaining % 60);
+    }
+
+    /// <summary>
+    /// Deactivate the game object of players that shouldn't be active
+    /// </summary>
+    private void SetActivePlayers()
+    {
+        foreach ( var player in FindObjectsOfType<Player>() )
+        {
+            if (player.PlayerNumber > GameConfig.NumberOfPlayers ) player.gameObject.SetActive( false );
+        }
     }
 
     /// <summary>
