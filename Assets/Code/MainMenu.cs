@@ -6,7 +6,9 @@ namespace Code
 {
     public class MainMenu : MonoBehaviour
     {
-        // Start is called before the first frame update
+        /// <summary>
+        /// Attach listeners to Menu buttons
+        /// </summary>
         void Start()
         {
             var startButtons = GameObject.Find( "Choices/StartButtons" );
@@ -17,16 +19,22 @@ namespace Code
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
 
+        /// <summary>
+        /// Start the game, setting the config to match the selected number of players
+        /// </summary>
         private void StartGame( int playerCount )
         {
             GameConfig.NumberOfPlayers = playerCount;
             SceneManager.LoadScene( "MainScene" );
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
     }
 }
