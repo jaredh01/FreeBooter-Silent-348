@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int NumberOfPlayers;
-
     private GameObject _scoreSection;
     private List<TextMeshProUGUI> _scoreTexts = new List<TextMeshProUGUI>();
     private int[] _scores = new int[4];
@@ -30,7 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScores()
     {
-        for ( var i = 0; i < NumberOfPlayers; i++ )
+        for ( var i = 0; i < GameConfig.NumberOfPlayers; i++ )
         {
             _scoreTexts[i].text = "Score: " + _scores[i];
         }
@@ -41,7 +39,7 @@ public class ScoreManager : MonoBehaviour
         foreach ( Transform section in _scoreSection.transform )
         {
             var sectionNumber = section.gameObject.name[section.gameObject.name.Length - 1] - '0';
-            if ( sectionNumber <= NumberOfPlayers )
+            if ( sectionNumber <= GameConfig.NumberOfPlayers )
             {
                 _scoreTexts.Add( GameObject.Find("Player " + sectionNumber + " Score Text").GetComponent<TextMeshProUGUI>() );
             }
