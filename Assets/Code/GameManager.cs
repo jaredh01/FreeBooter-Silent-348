@@ -6,12 +6,13 @@ using Time = UnityEngine.Time;
 public class GameManager : MonoBehaviour
 {
     public float RoundLength;
+    public static bool GamePaused = false;
 
     private Text _statusText;
     private Text _timeText;
     private float _timeRemaining;
     private bool _gameOver = false;
-    private bool _gamePaused = false;
+
 
     // Currently, start a round immediately
     private void Start()
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
             {
                 GameRestart();
             }
-            else if (_gamePaused)
+            else if (GamePaused)
             {
                 GameUnpause();
             }
@@ -93,7 +94,7 @@ public class GameManager : MonoBehaviour
     private void GamePause()
     {
         Time.timeScale = 0;
-        _gamePaused = true;
+        GamePaused = true;
         _statusText.text = "Game Paused";
     }
 
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
     private void GameUnpause()
     {
         Time.timeScale = 1;
-        _gamePaused = false;
+        GamePaused = false;
         _statusText.text = "";
     }
 }

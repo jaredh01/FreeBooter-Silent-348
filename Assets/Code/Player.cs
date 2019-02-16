@@ -33,15 +33,21 @@ public class Player : MonoBehaviour
         AssignPlayerColor();
     }
 
-    internal void FixedUpdate()
+    internal void Update()
     {
         HandleInput();
+    }
+
+    internal void FixedUpdate()
+    {
         //ClipHorizontalSpeed();
         CheckForFlip();
     }
 
     private void HandleInput()
     {
+        if ( GameManager.GamePaused ) return;
+
         if (Input.GetAxis("Horizontal" + PlayerNumber) >= _deadZone || Input.GetAxis("Horizontal" + PlayerNumber) <= -_deadZone)
         {
             //_rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
