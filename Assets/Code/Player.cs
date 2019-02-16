@@ -117,6 +117,7 @@ public class Player : MonoBehaviour
         _carriedWeapon = weapon;
         _isCarrying = true;
         weapon.IsCarried = true;
+        weapon.CarryingPlayer = this;
 
         weapon.gameObject.transform.parent = _transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
         if (!_isCarrying) return false;
         _carriedWeapon.UnuseWeapon();
         _carriedWeapon.IsCarried = false;
+        _carriedWeapon.CarryingPlayer = null;
         _carriedWeapon.gameObject.transform.parent = null;
         _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
         _isCarrying = false;
@@ -144,10 +146,12 @@ public class Player : MonoBehaviour
     /// </summary>
     public void TakeDamage(float damage, Player attacker)
     {
-        if (Health < 0) return;
+        if (Health <= 0) return;
         Health -= damage;
         if (Health <= 0)
         {
+            if ( attacker != null )
+            FindObjectOfType<ScoreManager>().ScorePoints( 1, attacker.PlayerNumber );
             DieAndRespawn();
         }
     }
