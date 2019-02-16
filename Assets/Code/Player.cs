@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
         weapon.IsCarried = true;
         weapon.CarryingPlayer = this;
 
-        weapon.gameObject.transform.parent = _transform;
+        weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
         weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
     }
