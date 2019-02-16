@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScores()
     {
-        for ( var i = 0; i < NumberOfPlayers - 1; i++ )
+        for ( var i = 0; i < NumberOfPlayers; i++ )
         {
             _scoreTexts[i].text = "Score: " + _scores[i];
         }
