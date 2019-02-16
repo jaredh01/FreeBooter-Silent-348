@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1399076029825145971}
   - component: {fileID: 1399076029825145970}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1399076029825145973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.58, y: -2.81, z: -0.1867669}
-  m_LocalScale: {x: 0.363, y: 0.861, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3794bcd1439784dbac2431c78f0082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCarried: 0
+  CarryingPlayer: {fileID: 0}
 --- !u!212 &1399076029825145971
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -82,8 +84,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a8d9f3eeeb0d18b43b8fb460cff3d1e3, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.90270615, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2382cd19427a6864eb41da6a7f81b384, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,16 +108,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0022386536, y: 0.11764945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5199125, y: 0.11967341}
+    oldSize: {x: 0.15, y: 0.3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16278414, y: 0.30356094}
   m_EdgeRadius: 0

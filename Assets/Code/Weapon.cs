@@ -26,22 +26,15 @@ public class Weapon : MonoBehaviour
     {
         if (_isActive || !IsCarried ) return;
         _isActive = true;
-        
-        //for now, sword only:
-        Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
-        // this.gameObject.transform.rotation = change; //isn't rotating properly
-        //this.gameObject.transform.Rotate(Vector3.forward * 90);
-        //this.gameObject.transform.Rotate(0, 0, 90);
-        _spriteRenderer.color = Color.red;
+        this.gameObject.transform.Rotate(0, 0, -90);
 
-        Invoke("UnuseWeapon", 1f);
+        Invoke("UnuseWeapon", 0.4f);
     }
 
     public void UnuseWeapon()
     {
         _isActive = false;
-        //gameObject.transform.Rotate(0,0,-90);
-        _spriteRenderer.color = Color.magenta;
+        gameObject.transform.Rotate(0,0,90);
     }
 
     private void OnTriggerStay2D(Collider2D other)
