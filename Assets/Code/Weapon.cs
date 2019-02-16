@@ -20,6 +20,8 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void UnuseWeapon();
 
+    public abstract void DropWeapon();
+
     private void OnTriggerStay2D(Collider2D other)
     {
         var temp = other.GetComponent<Player>();
