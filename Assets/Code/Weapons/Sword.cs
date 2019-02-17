@@ -11,6 +11,7 @@ public class Sword : Weapon
     {
         if (_isActive || !IsCarried) return;
         _isActive = true;
+        _audioSource.Play();
         _attackTimer = AttackLength;
         StartCoroutine( "SwordAttack" );
     }

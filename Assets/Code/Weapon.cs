@@ -8,12 +8,14 @@ public abstract class Weapon : MonoBehaviour
     public Player CarryingPlayer;
 
     internal SpriteRenderer _spriteRenderer;
+    internal AudioSource _audioSource;
     internal bool _isActive = false;
     
 
     internal void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public abstract void UseWeapon();

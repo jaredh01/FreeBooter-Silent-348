@@ -13,6 +13,7 @@ public class Spear : Weapon
         if (_isActive || !IsCarried) return;
         _isActive = true;
         _attackTimer = AttackLength;
+        _audioSource.Play();
         gameObject.transform.Rotate(0, 0, -90);
         StartCoroutine( "SpearAttack" );
     }
