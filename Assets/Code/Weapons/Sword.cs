@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
-    public float AttackLength = 0.5f;
+    public float AttackLength = 0.25f;
     private float _attackTimer;
 
     public override void UseWeapon()
     {
         if (_isActive || !IsCarried) return;
         _isActive = true;
-        gameObject.transform.Rotate(0, 0, -90);
-
-        Invoke("UnuseWeapon", 0.4f);
+        _attackTimer = AttackLength;
+        StartCoroutine( "SwordAttack" );
     }
 
     public override void UnuseWeapon()
     {
         _isActive = false;
-        gameObject.transform.Rotate(0, 0, 90);
+        gameObject.transform.localRotation = Quaternion.Euler( Vector3.zero );
     }
 
     public override void DropWeapon()
@@ -38,11 +37,28 @@ public class Sword : Weapon
 
     private IEnumerator SwordAttack()
     {
-        while (_attackTimer > 0)
+        while ( _attackTimer > AttackLength / 2 )
         {
             _attackTimer -= Time.fixedDeltaTime;
-            var lerpVar = (AttackLength - _attackTimer) / AttackLength;
-            gameObject.transform.localPosition = Vector3.Slerp(0.75f * Vector3.left, Vector3.right, lerpVar);
+            var lerpVar = ( AttackLength - _attackTimer) / ( AttackLength / 2 );
+            gameObject.transform.localRotation = Quaternion.Slerp( Quaternion.Euler( Vector3.zero ),
+                Quaternion.Euler( new Vector3( 0, 0, -100 ) ), lerpVar );
+            yield return null;
+        }
+
+        while ( _attackTimer > 0 )
+        {
+            _attackTimer -= Time.fixedDeltaTime;
+            yield return null;
+        }
+
+        while ( _attackTimer > -0.1f )
+        {
+            _attackTimer -= Time.fixedDeltaTime;
+            var lerpVar = ( -0.1f - _attackTimer ) / -0.1f;
+            gameObject.transform.localRotation = Quaternion.Slerp(
+                Quaternion.Euler( Vector3.zero ), Quaternion.Euler( new Vector3( 0, 0, -100 ) ),
+                lerpVar );
             yield return null;
         }
 
