@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
-        if ( GameManager.GamePaused ) return;
+        if ( GameManager.GamePaused || GameManager.GameIsOver ) return;
 
         if (Input.GetAxis("Horizontal" + PlayerNumber) >= _deadZone || Input.GetAxis("Horizontal" + PlayerNumber) <= -_deadZone)
         {

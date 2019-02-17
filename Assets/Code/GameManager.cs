@@ -9,12 +9,13 @@ public class GameManager : MonoBehaviour
 {
     public float RoundLength;
     public static bool GamePaused = false;
+    public static bool GameIsOver = false;
+
 
     private TextMeshProUGUI _statusText;
     private TextMeshProUGUI _timeText;
     private Camera _camera;
     private float _timeRemaining;
-    private bool _gameOver = false;
     private float _startGameDelay = 5f;
 
 
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         if ( _startGameDelay > 0 ) return;
         if ( Input.GetKeyDown( KeyCode.JoystickButton7 ) )
         {
-            if (_gameOver)
+            if ( GameIsOver )
             {
                 GameRestart();
             }
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 0;
-        _gameOver = true;
+        GameIsOver = true;
         _statusText.text = "Game Over! \nPress Start to Restart";
     }
 
