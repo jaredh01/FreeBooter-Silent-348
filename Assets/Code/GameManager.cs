@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public float RoundLength;
     public static bool GamePaused = false;
+    public static bool GameIsOver = false;
+
 
     private Text _statusText;
     private Text _timeText;
     private float _timeRemaining;
-    private bool _gameOver = false;
 
 
     // Currently, start a round immediately
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         if ( Input.GetKeyDown( KeyCode.JoystickButton7 ) )
         {
-            if (_gameOver)
+            if ( GameIsOver )
             {
                 GameRestart();
             }
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 0;
-        _gameOver = true;
+        GameIsOver = true;
         _statusText.text = "Game Over! \nPress Start to Restart";
     }
 
