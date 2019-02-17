@@ -136,12 +136,8 @@ public class Player : MonoBehaviour
     /// <returns> Returns true if weapon was dropped</returns>
     public bool DropWeapon()
     {
-        if (!_isCarrying) return false;
-        _carriedWeapon.UnuseWeapon();
-        _carriedWeapon.IsCarried = false;
-        _carriedWeapon.CarryingPlayer = null;
-        _carriedWeapon.gameObject.transform.parent = null;
-        _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
+        if ( !_isCarrying ) return false;
+        _carriedWeapon.DropWeapon();
         _isCarrying = false;
         _carriedWeapon = null;
         return true;
@@ -182,18 +178,6 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Health = _initialHealth;
     }
-
-    /// <summary>
-    /// If player is carrying a <see cref="Weapon"/>, use it
-    /// For now this is just swinging a sword, can be expanded for other weapons
-    /// </summary>
-    //public void UseWeapon()
-    //{
-    //    if (!_isCarrying) return;
-    //    //for now, sword only:
-    //    Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
-    //    _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
-    //}
 
     /// <summary>
     /// Modifies the player's <see cref="SpriteRenderer.color"/>, based on <see cref="PlayerNumber"/>
