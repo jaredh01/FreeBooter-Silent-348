@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Time = UnityEngine.Time;
@@ -10,27 +12,33 @@ public class GameManager : MonoBehaviour
     public static bool GameIsOver = false;
 
 
-    private Text _statusText;
-    private Text _timeText;
+    private TextMeshProUGUI _statusText;
+    private TextMeshProUGUI _timeText;
+    private Camera _camera;
     private float _timeRemaining;
+    private float _startGameDelay = 5f;
 
 
     // Currently, start a round immediately
     private void Start()
     {
+        Time.timeScale = 0;
+        _camera = FindObjectOfType<Camera>();
         SetGameTimer();
         SetActivePlayers();
+        StartCoroutine(StartGameAnimation());
     }
 
     private void Update()
     {
+        if ( _startGameDelay > 0 ) return;
         if ( Input.GetKeyDown( KeyCode.JoystickButton7 ) )
         {
             if ( GameIsOver )
             {
                 GameRestart();
             }
-            else if (GamePaused)
+            else if ( GamePaused )
             {
                 GameUnpause();
             }
@@ -54,8 +62,8 @@ public class GameManager : MonoBehaviour
     private void SetGameTimer()
     {
         _timeRemaining = RoundLength;
-        _statusText = GameObject.FindGameObjectWithTag("Status").GetComponent<Text>();
-        _timeText = GameObject.FindGameObjectWithTag("Time").GetComponent<Text>();
+        _statusText = GameObject.FindGameObjectWithTag("Status").GetComponent<TextMeshProUGUI>();
+        _timeText = GameObject.FindGameObjectWithTag("Time").GetComponent<TextMeshProUGUI>();
         _timeText.text = "Time Left: " + string.Format("{0}:{1:00}", (int)_timeRemaining / 60, (int)_timeRemaining % 60);
     }
 
@@ -68,6 +76,42 @@ public class GameManager : MonoBehaviour
         {
             if (player.PlayerNumber > GameConfig.NumberOfPlayers ) player.gameObject.SetActive( false );
         }
+    }
+
+    /// <summary>
+    /// A little animation on starting the game. Will need updated frequently.
+    /// </summary>
+    private IEnumerator StartGameAnimation()
+    {
+        while ( _startGameDelay > 0f )
+        {
+            _statusText.text = string.Format("Starting in: {0}", Mathf.Ceil(_startGameDelay));
+            _startGameDelay -= Time.unscaledDeltaTime;
+
+
+            if ( _startGameDelay > 4f  || _startGameDelay < 1f ) yield return null;
+            var slerpVar = ( 4f - _startGameDelay ) / 3f;
+            var originPoint = _camera.ViewportToScreenPoint( new Vector3( 0.5f, 0.5f) );
+            var destPoint = _camera.ViewportToScreenPoint( new Vector3( 0.8f, 0.8f ) );
+            _timeText.transform.position =  Vector3.Slerp( originPoint, destPoint, slerpVar  );
+            yield return null;
+        }
+
+        _statusText.text = "";
+        _statusText.fontSize = 24;
+        _statusText.color = Color.red;
+        Time.timeScale = 1;
+
+        while ( _startGameDelay > -0.7f )
+        {
+            _startGameDelay -= Time.fixedDeltaTime;
+            _statusText.text = "GO!";
+            yield return null;
+        }
+
+        _statusText.text = "";
+        _statusText.fontSize = 20;
+        _statusText.color = Color.white;
     }
 
     /// <summary>
