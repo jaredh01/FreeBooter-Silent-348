@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
                 GamePause();
             }
         }
+
+        if ( Input.GetKeyDown( KeyCode.JoystickButton6 ) && GameIsOver )
+        {
+            BackToMenu();
+        }
     }
 
     private void FixedUpdate()
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
             if ( _startGameDelay > 4f  || _startGameDelay < 1f ) yield return null;
             var slerpVar = ( 4f - _startGameDelay ) / 3f;
             var originPoint = _camera.ViewportToScreenPoint( new Vector3( 0.5f, 0.5f) );
-            var destPoint = _camera.ViewportToScreenPoint( new Vector3( 0.8f, 0.8f ) );
+            var destPoint = _camera.ViewportToScreenPoint( new Vector3( 0.78f, 0.8f ) );
             _timeText.transform.position =  Vector3.Slerp( originPoint, destPoint, slerpVar  );
             yield return null;
         }
@@ -124,7 +129,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         GameIsOver = true;
-        _statusText.text = "Game Over! \nPress Start to Restart";
+        _statusText.text = "Game Over! ";
+        DisplayWinner();
+        _statusText.text += " \nPress Start to Restart \nOr Select to Return to Menu";
     }
 
     /// <summary>
@@ -155,5 +162,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         GamePaused = false;
         _statusText.text = "";
+    }
+
+    private void BackToMenu()
+    {
+        Time.timeScale = 1;
+        GameIsOver = false;
+        SceneManager.LoadScene( "MainMenu" );
+    }
+
+    private void DisplayWinner()
+    {
+        var winner = FindObjectOfType<ScoreManager>().ReturnWinner();
+        if ( winner )
+        {
+            _statusText.text += "Player " + winner.PlayerNumber + " Wins!";
+            var winnerColor = winner.GetComponent<SpriteRenderer>().color;
+            _statusText.color = winnerColor;
+        }
+        else
+        {
+            _statusText.text += "It's a Tie!";
+        }
     }
 }
