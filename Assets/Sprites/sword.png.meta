@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2382cd19427a6864eb41da6a7f81b384
+guid: 8e867785ce063f6458308abbf5c968cd
 TextureImporter:
   fileIDToRecycleName:
     21300000: sword 1_0
@@ -44,10 +44,10 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 3, y: 8, z: 2, w: 3}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -89,17 +89,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 7
+        y: 8
         width: 15
         height: 30
       alignment: 9
-      pivot: {x: 0.5199125, y: 0.11967341}
+      pivot: {x: 0.5117578, y: 0.14334701}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99fe195bb62353147b4772ece983a334
+      spriteID: 54b4fa5349b79af49856cd034d512594
       vertices: []
       indices: 
       edges: []
@@ -107,7 +107,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 77da59584dfa95f4e90b19e34962e40b
+    spriteID: fbbe778211299d143961497d577cd2c5
     vertices: []
     indices: 
     edges: []
