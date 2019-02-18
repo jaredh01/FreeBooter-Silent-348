@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator StartGameAnimation()
     {
+        GamePaused = true;
+
         while ( _startGameDelay > 0f )
         {
             _statusText.text = string.Format("Starting in: {0}", Mathf.Ceil(_startGameDelay));
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
         _statusText.fontSize = 24;
         _statusText.color = Color.red;
         Time.timeScale = 1;
+        GamePaused = false;
 
         while ( _startGameDelay > -0.7f )
         {
