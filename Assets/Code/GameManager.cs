@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
     private void GameRestart()
     {
         Time.timeScale = 1;
+        GameIsOver = false;
         SceneManager.LoadScene( "MainScene" );
     }
 
