@@ -6,11 +6,11 @@ public class Player : MonoBehaviour
 {
     public int PlayerNumber;
     public float Health;
-    
+    public Sprite AliveSprite;
+    public Sprite DeadSprite;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
-    private Transform _transform;
     private Weapon _carriedWeapon;
     private GameObject _carryPoint;
     private Respawner _respawner;
@@ -25,9 +25,8 @@ public class Player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _transform = GetComponent<Transform>();
         _respawner = GetComponent<Respawner>();
-        _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
+        _carryPoint = transform.Find( "CarryPoint" ).gameObject;
 
         _initialHealth = Health;
         AssignPlayerColor();
@@ -164,6 +163,8 @@ public class Player : MonoBehaviour
     private void DieAndRespawn()
     {
         DropWeapon();
+        _spriteRenderer.sprite = DeadSprite;
+        GetComponent<AudioSource>().Play();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Invoke("Respawn", 2f);
     }
@@ -175,6 +176,7 @@ public class Player : MonoBehaviour
     {
         _rb.velocity = Vector2.zero;
         _respawner.TryRespawn(gameObject);
+        _spriteRenderer.sprite = AliveSprite;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Health = _initialHealth;
     }
