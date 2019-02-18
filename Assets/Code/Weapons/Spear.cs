@@ -33,7 +33,7 @@ public class Spear : Weapon
             UnuseWeapon();
         }
         IsCarried = false;
-        gameObject.transform.position = CarryingPlayer.transform.position;
+        gameObject.transform.position = CarryingPlayer.transform.position + new Vector3( 0, 1, 0 );
         CarryingPlayer = null;
         gameObject.transform.parent = null;
     }
