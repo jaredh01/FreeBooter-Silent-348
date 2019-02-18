@@ -49,7 +49,7 @@ MonoBehaviour:
   IsCarried: 0
   CarryingPlayer: {fileID: 0}
   AttackLength: 1
-  CoolDownLength: 0.25
+  CoolDownLength: 0.5
 --- !u!212 &6021661037863931511
 SpriteRenderer:
   m_ObjectHideFlags: 0
