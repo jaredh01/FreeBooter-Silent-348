@@ -26,6 +26,30 @@ public class ScoreManager : MonoBehaviour
         UpdateScores();
     }
 
+    /// <summary>
+    /// Return the winning player, or null if a tie
+    /// </summary>
+    public Player ReturnWinner()
+    {
+        var winnerNum = 0;
+        var bestScore = 0;
+        for (var i = 0; i < GameConfig.NumberOfPlayers; i++)
+        {
+            var score = _scores[i];
+            if ( bestScore < score )
+            {
+                bestScore = _scores[i];
+                winnerNum = i + 1;
+            }
+            else if ( bestScore == score )
+            {
+                winnerNum = 0;
+            }
+        }
+
+        return winnerNum == 0 ? null : GameObject.Find( "Player" + winnerNum ).GetComponent<Player>();
+    }
+
     private void UpdateScores()
     {
         for ( var i = 0; i < GameConfig.NumberOfPlayers; i++ )

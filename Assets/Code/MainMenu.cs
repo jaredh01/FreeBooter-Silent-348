@@ -17,6 +17,9 @@ namespace Code
                 var playerCount = buttonObject.gameObject.name[buttonObject.gameObject.name.Length - 2] - '0';
                 buttonObject.gameObject.GetComponent<Button>().onClick.AddListener( () => StartGame( playerCount ) );
             }
+
+            var quitButton = GameObject.Find("Choices/QuitButton");
+            quitButton.gameObject.GetComponent<Button>().onClick.AddListener(QuitGame);
         }
 
 

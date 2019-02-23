@@ -6,11 +6,11 @@ public class Player : MonoBehaviour
 {
     public int PlayerNumber;
     public float Health;
-    
+    public Sprite AliveSprite;
+    public Sprite DeadSprite;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
-    private Transform _transform;
     private Weapon _carriedWeapon;
     private GameObject _carryPoint;
     private Respawner _respawner;
@@ -25,23 +25,28 @@ public class Player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _transform = GetComponent<Transform>();
         _respawner = GetComponent<Respawner>();
-        _carryPoint = _transform.Find( "CarryPoint" ).gameObject;
+        _carryPoint = transform.Find( "CarryPoint" ).gameObject;
 
         _initialHealth = Health;
         AssignPlayerColor();
     }
 
-    internal void FixedUpdate()
+    internal void Update()
     {
         HandleInput();
+    }
+
+    internal void FixedUpdate()
+    {
         //ClipHorizontalSpeed();
         CheckForFlip();
     }
 
     private void HandleInput()
     {
+        if ( GameManager.GamePaused || GameManager.GameIsOver || Health < 0 ) return;
+
         if (Input.GetAxis("Horizontal" + PlayerNumber) >= _deadZone || Input.GetAxis("Horizontal" + PlayerNumber) <= -_deadZone)
         {
             //_rb.velocity += Vector2.right * Input.GetAxis("Horizontal" + PlayerNumber);
@@ -130,12 +135,8 @@ public class Player : MonoBehaviour
     /// <returns> Returns true if weapon was dropped</returns>
     public bool DropWeapon()
     {
-        if (!_isCarrying) return false;
-        _carriedWeapon.UnuseWeapon();
-        _carriedWeapon.IsCarried = false;
-        _carriedWeapon.CarryingPlayer = null;
-        _carriedWeapon.gameObject.transform.parent = null;
-        _carriedWeapon.gameObject.transform.position = _transform.position; // tweak to be in front of the player or thrown ahead
+        if ( !_isCarrying ) return false;
+        _carriedWeapon.DropWeapon();
         _isCarrying = false;
         _carriedWeapon = null;
         return true;
@@ -162,6 +163,8 @@ public class Player : MonoBehaviour
     private void DieAndRespawn()
     {
         DropWeapon();
+        _spriteRenderer.sprite = DeadSprite;
+        GetComponent<AudioSource>().Play();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Invoke("Respawn", 2f);
     }
@@ -173,21 +176,10 @@ public class Player : MonoBehaviour
     {
         _rb.velocity = Vector2.zero;
         _respawner.TryRespawn(gameObject);
+        _spriteRenderer.sprite = AliveSprite;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Health = _initialHealth;
     }
-
-    /// <summary>
-    /// If player is carrying a <see cref="Weapon"/>, use it
-    /// For now this is just swinging a sword, can be expanded for other weapons
-    /// </summary>
-    //public void UseWeapon()
-    //{
-    //    if (!_isCarrying) return;
-    //    //for now, sword only:
-    //    Quaternion change = Quaternion.AngleAxis(90, Vector3.forward);
-    //    _carriedWeapon.gameObject.transform.rotation = change; //isn't rotating properly
-    //}
 
     /// <summary>
     /// Modifies the player's <see cref="SpriteRenderer.color"/>, based on <see cref="PlayerNumber"/>

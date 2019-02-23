@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1399076029825145973
+--- !u!1 &5701698581504561692
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,54 +8,55 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1399076029825145969}
-  - component: {fileID: 1399076029825145968}
-  - component: {fileID: 1399076029825145971}
-  - component: {fileID: 1399076029825145970}
-  - component: {fileID: 8865681548001890101}
+  - component: {fileID: 3606390287969283551}
+  - component: {fileID: 5205449454547267290}
+  - component: {fileID: 6021661037863931511}
+  - component: {fileID: 7812513703932645435}
+  - component: {fileID: 7488329531345018292}
   m_Layer: 0
-  m_Name: Sword
+  m_Name: WarAx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1399076029825145969
+--- !u!4 &3606390287969283551
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399076029825145973}
+  m_GameObject: {fileID: 5701698581504561692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.58, y: -2.81, z: -0.1867669}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -2.22, y: -5.73, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1399076029825145968
+--- !u!114 &5205449454547267290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399076029825145973}
+  m_GameObject: {fileID: 5701698581504561692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d03f4dc598487e42bc06500f56f266c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b423aad481a35749a297ef87635e892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsCarried: 0
   CarryingPlayer: {fileID: 0}
-  AttackLength: 0.25
---- !u!212 &1399076029825145971
+  AttackLength: 1
+  CoolDownLength: 0.5
+--- !u!212 &6021661037863931511
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399076029825145973}
+  m_GameObject: {fileID: 5701698581504561692}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,56 +87,56 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8e867785ce063f6458308abbf5c968cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 528c3ea9e252754428642f2349b55760, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 3.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1399076029825145970
+--- !u!61 &7812513703932645435
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399076029825145973}
+  m_GameObject: {fileID: 5701698581504561692}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0022386536, y: 0.111056685}
+  m_Offset: {x: -0.10677624, y: 1.7914617}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5117578, y: 0.14334701}
-    oldSize: {x: 0.15, y: 0.3}
-    newSize: {x: 1, y: 1}
+    pivot: {x: 0.54982233, y: 0.13259251}
+    oldSize: {x: 2, y: 3.54}
+    newSize: {x: 2, y: 3.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16278414, y: 0.2903754}
+  m_Size: {x: 2.2135525, y: 2.7332492}
   m_EdgeRadius: 0
---- !u!82 &8865681548001890101
+--- !u!82 &7488329531345018292
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399076029825145973}
+  m_GameObject: {fileID: 5701698581504561692}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b5423b64b971e7e41abea1b6ade70bb6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2403cca34ff8c124cb542c00994f7053, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.29
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
