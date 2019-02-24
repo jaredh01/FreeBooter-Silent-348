@@ -33,6 +33,7 @@ public class Sword : Weapon
         gameObject.transform.position = CarryingPlayer.transform.position;
         CarryingPlayer = null;
         gameObject.transform.parent = null;
+        StartCoroutine("DespawnWeapon");
         // tweak to be in front of the player or thrown ahead
     }
 

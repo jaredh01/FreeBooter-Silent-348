@@ -36,6 +36,15 @@ public class WeaponRespawnPoint : MonoBehaviour
         _initialDelay = InitialDelay;
     }
 
+    /// <summary>
+    /// Free up the spawn point to spawn again
+    /// </summary>
+    public void FreePoint()
+    {
+        Active = true;
+        _spawnDelay = UnityEngine.Random.Range((AverageSpawnTime * 0.75f), (AverageSpawnTime * 1.25f));
+    }
+
     private void FixedUpdate()
     {
         if ( !Active ) return;
@@ -51,7 +60,7 @@ public class WeaponRespawnPoint : MonoBehaviour
         else
         {
             SpawnWeapon();
-            _spawnDelay = UnityEngine.Random.Range( ( AverageSpawnTime * 0.75f ), ( AverageSpawnTime * 1.25f ) );
+            Active = false;
         }
     }
 
@@ -60,6 +69,7 @@ public class WeaponRespawnPoint : MonoBehaviour
         var index = Random.Range( 0, _weaponsAvailable.Count );
         var prefabToSpawn = _weaponsAvailable[index];
         var weapon = Instantiate( prefabToSpawn, transform.position, transform.rotation );
+        weapon.GetComponent<Weapon>().SourcePoint = this;
     }
 
     private void GenerateWeaponPool()
