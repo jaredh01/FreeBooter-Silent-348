@@ -37,6 +37,20 @@ public class Sword : Weapon
         // tweak to be in front of the player or thrown ahead
     }
 
+    public void ThrowWeapon()
+    {
+        if (_isActive)
+        {
+            StopCoroutine("SwordAttack");
+            UnuseWeapon();
+        }
+        IsCarried = false;
+        gameObject.transform.position = CarryingPlayer.transform.position;
+        CarryingPlayer = null;
+        gameObject.transform.parent = null;
+        _rb.velocity = new Vector3(1, 0, 0);
+    }
+
     private IEnumerator SwordAttack()
     {
         while ( _attackTimer > AttackLength / 2 )

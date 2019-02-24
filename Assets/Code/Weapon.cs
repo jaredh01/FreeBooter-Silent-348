@@ -12,6 +12,7 @@ public abstract class Weapon : MonoBehaviour
     internal AudioSource _audioSource;
     internal bool _isActive = false;
     internal float _despawnTimer = 3f;
+    public Rigidbody2D _rb;
 
     
 
@@ -19,6 +20,7 @@ public abstract class Weapon : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
+        _rb = GetComponent < Rigidbody2D>();
     }
 
     public abstract void UseWeapon();

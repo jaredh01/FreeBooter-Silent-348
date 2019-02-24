@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public float Health;
     public Sprite AliveSprite;
     public Sprite DeadSprite;
+    public int ScoreScale;
+    //public bool FacingRight;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
         _carryPoint = transform.Find( "CarryPoint" ).gameObject;
 
         _initialHealth = Health;
+        ScoreScale = 1;
         AssignPlayerColor();
     }
 
@@ -110,6 +113,7 @@ public class Player : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
+
     }
 
     /// <summary>
@@ -128,6 +132,7 @@ public class Player : MonoBehaviour
         weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
         weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
+        weapon._rb.position = _carryPoint.transform.position; // this is new
     }
 
     /// <summary>
@@ -153,8 +158,22 @@ public class Player : MonoBehaviour
         if (Health <= 0)
         {
             if ( attacker != null )
-            FindObjectOfType<ScoreManager>().ScorePoints( 1, attacker.PlayerNumber );
-            DieAndRespawn();
+            {
+                if (_rb.position.y >= -5 && _rb.position.y < 2)
+                {
+                    attacker.ScoreScale = 2;
+                }
+                else if (_rb.position.y >= 2)
+                {
+                    attacker.ScoreScale = 3;
+                }
+                else
+                {
+                    attacker.ScoreScale = 1;
+                }
+                FindObjectOfType<ScoreManager>().ScorePoints(1 * attacker.ScoreScale, attacker.PlayerNumber);
+                DieAndRespawn();
+            }
         }
     }
 

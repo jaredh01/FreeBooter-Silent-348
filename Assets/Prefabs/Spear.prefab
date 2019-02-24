@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1932633128905095048}
   - component: {fileID: 2280446266518816480}
   - component: {fileID: 3151768439571936140}
-  m_Layer: 0
+  - component: {fileID: 4929249045967495396}
+  m_Layer: 8
   m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCarried: 0
   CarryingPlayer: {fileID: 0}
+  SourcePoint: {fileID: 0}
+  _rb: {fileID: 0}
   AttackLength: 0.4
   CoolDownLength: 0.4
 --- !u!212 &1932633128905095048
@@ -220,3 +223,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &4929249045967495396
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932633128905095063}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
