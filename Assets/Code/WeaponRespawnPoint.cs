@@ -39,6 +39,11 @@ public class WeaponRespawnPoint : MonoBehaviour
     private void FixedUpdate()
     {
         if ( !Active ) return;
+        if ( _initialDelay > 0 )
+        {
+            _initialDelay -= Time.fixedDeltaTime;
+            return;
+        }
         if ( _spawnDelay > 0 )
         {
             _spawnDelay -= Time.fixedDeltaTime;
