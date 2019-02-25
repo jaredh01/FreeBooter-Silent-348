@@ -3681,12 +3681,17 @@ PrefabInstance:
     - target: {fileID: 1369182339671483349, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
       propertyPath: PointRarityType
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1369182339671483349, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
       propertyPath: AverageSpawnTime
-      value: 5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369182339671483349, guid: 6d3abf06c856b3247b9264fef6693bd6,
+        type: 3}
+      propertyPath: InitialDelay
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3abf06c856b3247b9264fef6693bd6, type: 3}
@@ -3961,7 +3966,7 @@ PrefabInstance:
     - target: {fileID: 1369182339671483349, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
       propertyPath: AverageSpawnTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1369182339671483349, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
