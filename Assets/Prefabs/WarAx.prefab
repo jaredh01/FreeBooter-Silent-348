@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6021661037863931511}
   - component: {fileID: 7812513703932645435}
   - component: {fileID: 7488329531345018292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WarAx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCarried: 0
   CarryingPlayer: {fileID: 0}
+  SourcePoint: {fileID: 0}
+  _rb: {fileID: 0}
   AttackLength: 1
   CoolDownLength: 0.5
 --- !u!212 &6021661037863931511

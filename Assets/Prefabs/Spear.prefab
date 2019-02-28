@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1932633128905095048}
   - component: {fileID: 2280446266518816480}
   - component: {fileID: 3151768439571936140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCarried: 0
   CarryingPlayer: {fileID: 0}
+  SourcePoint: {fileID: 0}
+  _rb: {fileID: 0}
   AttackLength: 0.4
   CoolDownLength: 0.4
 --- !u!212 &1932633128905095048

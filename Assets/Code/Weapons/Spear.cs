@@ -40,6 +40,7 @@ public class Spear : Weapon
         gameObject.transform.position = CarryingPlayer.transform.position + new Vector3( 0, 1, 0 );
         CarryingPlayer = null;
         gameObject.transform.parent = null;
+        StartCoroutine("DespawnWeapon");
     }
 
     private IEnumerator SpearAttack()
