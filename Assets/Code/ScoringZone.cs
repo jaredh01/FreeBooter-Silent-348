@@ -16,7 +16,7 @@ public class ScoringZone : MonoBehaviour
         _timeTillMove = _movementTime;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
