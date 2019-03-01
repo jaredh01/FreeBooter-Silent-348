@@ -11,9 +11,10 @@ namespace Code
         /// </summary>
         void Start()
         {
-            var startButtons = GameObject.Find( "Choices/StartButtons" );
+            var startButtons = GameObject.Find( "Choices" );
             foreach ( Transform buttonObject in startButtons.transform )
             {
+                if ( buttonObject.gameObject.name[0] == 'Q' ) return;
                 var playerCount = buttonObject.gameObject.name[buttonObject.gameObject.name.Length - 2] - '0';
                 buttonObject.gameObject.GetComponent<Button>().onClick.AddListener( () => StartGame( playerCount ) );
             }
