@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.LowLevel;
 
 public class Player : MonoBehaviour
 {
@@ -183,6 +184,7 @@ public class Player : MonoBehaviour
         {
             if ( attacker != null )
             {
+                /*
                 if (_rb.position.y >= -5 && _rb.position.y < 2)
                 {
                     attacker.ScoreScale = 2;
@@ -195,7 +197,13 @@ public class Player : MonoBehaviour
                 {
                     attacker.ScoreScale = 1;
                 }
-                FindObjectOfType<ScoreManager>().ScorePoints(1 * attacker.ScoreScale, attacker.PlayerNumber);
+                */
+                FindObjectOfType<ScoreManager>().ScorePoints(1, attacker.PlayerNumber);
+                DieAndRespawn();
+            }
+            else
+            {
+                FindObjectOfType<ScoreManager>().ScorePoints( -1, PlayerNumber );
                 DieAndRespawn();
             }
         }
