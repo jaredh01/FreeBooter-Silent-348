@@ -95,16 +95,24 @@ public class Player : MonoBehaviour
         //when y button is pressed, check circle collider and weapon
         if (Input.GetButtonDown("YButton" + PlayerNumber))
         {
-            if (!DropWeapon())
+            Weapon droppedWeapon = null;
+            if ( _carriedWeapon != null )
             {
-                Collider2D[] others = Physics2D.OverlapCircleAll(_rb.position, 1); // we can tweak this radius as necessary
-                for (int i = 0; i < others.Length; i++) // what do we do about multiple weapons being in the circle collider? rn this will just get the first one
+                droppedWeapon = _carriedWeapon.GetComponent<Weapon>();
+                DropWeapon();
+            }
+            Collider2D[] others = Physics2D.OverlapCircleAll(_rb.position, 1.2f); // we can tweak this radius as necessary
+            foreach ( var weapon in others )
+            {
+                Weapon otherWeapon = weapon.gameObject.GetComponent<Weapon>();
+                if ( !otherWeapon ) continue;
+                if ( droppedWeapon && otherWeapon != droppedWeapon )
                 {
-                    Weapon otherWeapon = others[i].gameObject.GetComponent<Weapon>();
-                    if (otherWeapon)
-                    {
-                        PickUp(otherWeapon);
-                    }
+                    PickUp(otherWeapon);
+                }
+                else if ( !droppedWeapon )
+                {
+                    PickUp(otherWeapon);
                 }
             }
         }
