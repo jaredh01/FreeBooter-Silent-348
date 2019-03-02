@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
     {
         for ( var i = 0; i < GameConfig.NumberOfPlayers; i++ )
         {
-            _scoreTexts[i].text = "Score: " + _scores[i];
+            _scoreTexts[i].text = _scores[i].ToString();
         }
     }
 
