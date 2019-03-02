@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         }
         
         //when x button is pressed, swing weapon
-        if (Input.GetButtonDown("XButton" + PlayerNumber))
+        if ( Input.GetButtonDown( "XButton" + PlayerNumber ) || Input.GetAxis( "RightTrigger" + PlayerNumber ) > 0.2 )
         {
             if (_isCarrying)
             {
