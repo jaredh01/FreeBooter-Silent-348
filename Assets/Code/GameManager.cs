@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour
     public GameObject VictoryMenu;
     public GameObject StartMenu;
     public GameObject StartCountdown;
-    public TextMeshProUGUI VictoryNumberText;
+    public TextMeshProUGUI VictorNumberText;
     public TextMeshProUGUI StartNumberText;
     public TextMeshProUGUI StartStartText;
+    public TextMeshProUGUI VictoryConditionText;
 
     private float _startGameDelay = 5f;
 
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         GamePaused = true;
         StartMenu.SetActive( true );
+        VictoryConditionText.text = GetComponent<ScoreManager>().VictoryScore.ToString();
         while ( _startGameDelay > 0f )
         {
             StartNumberText.text = string.Format("{0}", (int) _startGameDelay + 1);
@@ -101,8 +103,8 @@ public class GameManager : MonoBehaviour
         GameIsOver = true;
         VictoryMenu.SetActive( true );
         var winningNumber = FindObjectOfType<ScoreManager>().ReturnWinner().PlayerNumber;
-        VictoryNumberText.color = DeterminePlayerColor( winningNumber );
-        VictoryNumberText.text = winningNumber.ToString();
+        VictorNumberText.color = DeterminePlayerColor( winningNumber );
+        VictorNumberText.text = winningNumber.ToString();
     }
 
     /// <summary>
