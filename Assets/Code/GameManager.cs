@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static bool GamePaused = false;
     public static bool GameIsOver = false;
     public GameObject PauseMenu;
+    public GameObject VictoryMenu;
+    public TextMeshProUGUI VictoryNumberText;
 
 
     private TextMeshProUGUI _statusText;
@@ -130,15 +132,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         GameIsOver = true;
-        _statusText.text = "Game Over! ";
-        DisplayWinner();
-        _statusText.text += " \nPress Start to Restart \nOr Select to Return to Menu";
+        VictoryMenu.SetActive( true );
+        var winningNumber = FindObjectOfType<ScoreManager>().ReturnWinner().PlayerNumber;
+        VictoryNumberText.color = DeterminePlayerColor( winningNumber );
+        VictoryNumberText.text = winningNumber.ToString();
     }
 
     /// <summary>
     /// Restart the game.
     /// </summary>
-    private void GameRestart()
+    public void GameRestart()
     {
         Time.timeScale = 1;
         GameIsOver = false;
@@ -172,19 +175,28 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene( "MainMenu" );
     }
 
-
-    private void DisplayWinner()
+    private Color DeterminePlayerColor( int playerNumber )
     {
-        var winner = FindObjectOfType<ScoreManager>().ReturnWinner();
-        if ( winner )
+        Color playerColor;
+        switch (playerNumber)
         {
-            _statusText.text += "Player " + winner.PlayerNumber + " Wins!";
-            var winnerColor = winner.GetComponent<SpriteRenderer>().color;
-            _statusText.color = winnerColor;
+            case 1:
+                playerColor = new Color32(215, 74, 74, 255);
+                break;
+            case 2:
+                playerColor = new Color32(95, 101, 234, 255);
+                break;
+            case 3:
+                playerColor = new Color32(251, 240, 151, 255);
+                break;
+            case 4:
+                playerColor = new Color32(110, 246, 123, 255);
+                break;
+            default:
+                playerColor = Color.black;
+                break;
         }
-        else
-        {
-            _statusText.text += "It's a Tie!";
-        }
+
+        return playerColor;
     }
 }
