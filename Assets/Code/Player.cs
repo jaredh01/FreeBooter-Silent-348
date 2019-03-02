@@ -210,16 +210,16 @@ public class Player : MonoBehaviour
         switch (PlayerNumber)
         {
             case 1:
-                playerColor = Color.red;
+                playerColor = new Color32(215, 74, 74, 255);
                 break;
             case 2:
-                playerColor = Color.blue;
+                playerColor = new Color32(95, 101, 234, 255);
                 break;
             case 3:
-                playerColor = Color.yellow;
+                playerColor = new Color32(251, 240, 151, 255);
                 break;
             case 4:
-                playerColor = Color.green;
+                playerColor = new Color32( 110, 246, 123, 255 );
                 break;
             default:
                 playerColor = Color.white;
