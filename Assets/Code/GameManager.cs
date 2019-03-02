@@ -7,25 +7,23 @@ using Time = UnityEngine.Time;
 
 public class GameManager : MonoBehaviour
 {
-    public float RoundLength;
     public static bool GamePaused = false;
     public static bool GameIsOver = false;
     public GameObject PauseMenu;
     public GameObject VictoryMenu;
+    public GameObject StartMenu;
+    public GameObject StartCountdown;
     public TextMeshProUGUI VictoryNumberText;
+    public TextMeshProUGUI StartNumberText;
+    public TextMeshProUGUI StartStartText;
 
-
-    private TextMeshProUGUI _statusText;
-    private Camera _camera;
-    private float _startGameDelay = 5.1f;
+    private float _startGameDelay = 5f;
 
 
     // Currently, start a round immediately
     private void Start()
     {
         Time.timeScale = 0;
-        _camera = FindObjectOfType<Camera>();
-        _statusText = GameObject.FindGameObjectWithTag("Status").GetComponent<TextMeshProUGUI>();
         SetActivePlayers();
         StartCoroutine(StartGameAnimation());
     }
@@ -72,30 +70,26 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartGameAnimation()
     {
         GamePaused = true;
-
+        StartMenu.SetActive( true );
         while ( _startGameDelay > 0f )
         {
-            _statusText.text = string.Format("Starting in: {0}", (int) _startGameDelay);
+            StartNumberText.text = string.Format("{0}", (int) _startGameDelay + 1);
             _startGameDelay -= Time.unscaledDeltaTime;
             yield return null;
         }
 
-        _statusText.text = "";
-        _statusText.fontSize = 24;
-        _statusText.color = Color.red;
+        StartCountdown.SetActive( false );
+        StartStartText.gameObject.SetActive( true );
         Time.timeScale = 1;
         GamePaused = false;
 
-        while ( _startGameDelay > -0.7f )
+        while ( _startGameDelay > -1.5f )
         {
             _startGameDelay -= Time.fixedDeltaTime;
-            _statusText.text = "GO!";
             yield return null;
         }
 
-        _statusText.text = "";
-        _statusText.fontSize = 20;
-        _statusText.color = Color.white;
+        StartMenu.SetActive( false );
     }
 
     /// <summary>
