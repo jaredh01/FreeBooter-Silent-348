@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
     /// <returns>If pick up was successful.</returns>
     public void PickUp(Weapon weapon)
     {
-        if (_isCarrying || weapon.IsCarried) return;
+        if ( _isCarrying || weapon.IsCarried || Health < 0 ) return;
         _carriedWeapon = weapon;
         _isCarrying = true;
         weapon.IsCarried = true;
