@@ -362,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 1946229818716437243, guid: 401eedb17f0398e41b0fa1b7d2d61ea4,
         type: 3}
       propertyPath: m_FlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 401eedb17f0398e41b0fa1b7d2d61ea4, type: 3}
@@ -1934,7 +1934,7 @@ PrefabInstance:
     - target: {fileID: 1946229818716437243, guid: 401eedb17f0398e41b0fa1b7d2d61ea4,
         type: 3}
       propertyPath: m_FlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 401eedb17f0398e41b0fa1b7d2d61ea4, type: 3}
