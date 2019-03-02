@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WarAx : Weapon
 {
-    public float AttackLength = 2f;
-    public float CoolDownLength = 0.25f;
+    public float AttackLength;
+    public float CoolDownLength;
     private float _attackTimer;
     private float _coolDownTimer;
 
@@ -61,7 +61,7 @@ public class WarAx : Weapon
             _attackTimer -= Time.fixedDeltaTime;
             var lerpVar = ( ( AttackLength / 2 ) - _attackTimer) / ( AttackLength / 2 );
             gameObject.transform.localRotation = Quaternion.Slerp( Quaternion.Euler( new Vector3( 0, 0, 45 ) ),
-                Quaternion.Euler( new Vector3( 0, 0, -100 ) ), lerpVar );
+                Quaternion.Euler( new Vector3( 0, 0, -110 ) ), lerpVar );
             yield return null;
         }
 

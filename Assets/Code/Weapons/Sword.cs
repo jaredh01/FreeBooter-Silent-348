@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
-    public float AttackLength = 0.25f;
+    public float AttackLength;
     private float _attackTimer;
 
     public override void UseWeapon()

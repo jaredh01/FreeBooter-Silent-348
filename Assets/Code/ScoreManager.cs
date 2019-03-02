@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public int VictoryScore;
+
     private GameObject _scoreSection;
     private List<TextMeshProUGUI> _scoreTexts = new List<TextMeshProUGUI>();
     private int[] _scores = new int[4];
@@ -24,6 +26,10 @@ public class ScoreManager : MonoBehaviour
     {
         _scores[playerNumber - 1] += score;
         UpdateScores();
+        if (_scores[playerNumber - 1] >= VictoryScore)
+        {
+            FindObjectOfType<GameManager>().GameOver();
+        }
     }
 
     /// <summary>
@@ -54,7 +60,7 @@ public class ScoreManager : MonoBehaviour
     {
         for ( var i = 0; i < GameConfig.NumberOfPlayers; i++ )
         {
-            _scoreTexts[i].text = "Score: " + _scores[i];
+            _scoreTexts[i].text = _scores[i].ToString();
         }
     }
 

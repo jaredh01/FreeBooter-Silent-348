@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private GameObject _carryPoint;
     private Respawner _respawner;
     private bool _isCarrying = false;
+    private bool _RightTriggerDown = false;
     private float _initialHealth;
     private static float _maxSpeed = 10f;
     private static float _jumpHeight = 23f;
@@ -68,12 +69,27 @@ public class Player : MonoBehaviour
         }
         
         //when x button is pressed, swing weapon
-        if (Input.GetButtonDown("XButton" + PlayerNumber))
+        if ( Input.GetButtonDown( "XButton" + PlayerNumber ) )
         {
             if (_isCarrying)
             {
                 _carriedWeapon.UseWeapon(); // SUPPOSEDLY rotates but actually squishes
             }
+        }
+           
+        //When right-trigger pressed down, and it wasn't already, attack
+        if ( !_RightTriggerDown && Input.GetAxis( "RightTrigger" + PlayerNumber ) > 0.2 )
+        {
+            if ( _isCarrying )
+            {
+                _RightTriggerDown = true;
+                _carriedWeapon.UseWeapon();
+            }
+        }
+
+        if ( _RightTriggerDown && Input.GetAxis( "RightTrigger" + PlayerNumber ) < 0.01 )
+        {
+            _RightTriggerDown = false;
         }
 
         //when y button is pressed, check circle collider and weapon
@@ -210,16 +226,16 @@ public class Player : MonoBehaviour
         switch (PlayerNumber)
         {
             case 1:
-                playerColor = Color.red;
+                playerColor = new Color32(215, 74, 74, 255);
                 break;
             case 2:
-                playerColor = Color.blue;
+                playerColor = new Color32(95, 101, 234, 255);
                 break;
             case 3:
-                playerColor = Color.yellow;
+                playerColor = new Color32(251, 240, 151, 255);
                 break;
             case 4:
-                playerColor = Color.green;
+                playerColor = new Color32( 110, 246, 123, 255 );
                 break;
             default:
                 playerColor = Color.white;

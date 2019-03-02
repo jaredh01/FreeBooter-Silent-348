@@ -51,7 +51,7 @@ MonoBehaviour:
   SourcePoint: {fileID: 0}
   _rb: {fileID: 0}
   AttackLength: 1
-  CoolDownLength: 0.5
+  CoolDownLength: 0.4
 --- !u!212 &6021661037863931511
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -113,18 +113,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.10677624, y: 1.7914617}
+  m_Offset: {x: -0.0110189915, y: 1.1963986}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.54982233, y: 0.13259251}
-    oldSize: {x: 2, y: 3.54}
+    pivot: {x: 0.48347428, y: 0.21420239}
+    oldSize: {x: 2.25, y: 4.25}
     newSize: {x: 2, y: 3.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2135525, y: 2.7332492}
+  m_Size: {x: 2.268271, y: 4.087534}
   m_EdgeRadius: 0
 --- !u!82 &7488329531345018292
 AudioSource:
