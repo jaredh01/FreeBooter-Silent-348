@@ -4402,8 +4402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 256.94, y: -150}
-  m_SizeDelta: {x: 493.88, y: 300}
+  m_AnchoredPosition: {x: 320, y: -150}
+  m_SizeDelta: {x: 620, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785703281
 MonoBehaviour:
@@ -4428,15 +4428,10 @@ MonoBehaviour:
   m_text: 'In this game, you are RECTANGULAR.
 
 
-    MOVE with LEFT STICK
+    PICKUP and FIGHT with weapons, and try to get into the SCORING ZONE!
 
-    JUMP with A
 
-    PICKUP with Y
-
-    ATTACK with X / RIGHT TRIGGER
-
-    PAUSE with START'
+    Get enough POINTS, and you WIN!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8da238998fae5a94ea8df2f51ee30d6f, type: 2}
   m_sharedMaterial: {fileID: 21744954210951106, guid: 8da238998fae5a94ea8df2f51ee30d6f,
@@ -4506,12 +4501,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1785703281}
-    characterCount: 129
+    characterCount: 137
     spriteCount: 0
-    spaceCount: 25
-    wordCount: 24
+    spaceCount: 26
+    wordCount: 25
     linkCount: 0
-    lineCount: 7
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -4520,7 +4515,7 @@ MonoBehaviour:
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
   m_inputSource: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
