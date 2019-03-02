@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float RoundLength;
     public static bool GamePaused = false;
     public static bool GameIsOver = false;
+    public GameObject PauseMenu;
 
 
     private TextMeshProUGUI _statusText;
@@ -147,29 +148,30 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Pause the game and display pause text
     /// </summary>
-    private void GamePause()
+    public void GamePause()
     {
         Time.timeScale = 0;
         GamePaused = true;
-        _statusText.text = "Game Paused";
+        PauseMenu.gameObject.SetActive( true );
     }
 
     /// <summary>
     /// Unpause the game
     /// </summary>
-    private void GameUnpause()
+    public void GameUnpause()
     {
         Time.timeScale = 1;
         GamePaused = false;
-        _statusText.text = "";
+        PauseMenu.gameObject.SetActive( false );
     }
 
-    private void BackToMenu()
+    public void BackToMenu()
     {
         Time.timeScale = 1;
         GameIsOver = false;
         SceneManager.LoadScene( "MainMenu" );
     }
+
 
     private void DisplayWinner()
     {

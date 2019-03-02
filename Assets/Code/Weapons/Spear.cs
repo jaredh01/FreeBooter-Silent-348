@@ -37,7 +37,7 @@ public class Spear : Weapon
         }
         gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
         IsCarried = false;
-        gameObject.transform.position = CarryingPlayer.transform.position + new Vector3( 0, 1, 0 );
+        gameObject.transform.position = CarryingPlayer.transform.position;
         CarryingPlayer = null;
         gameObject.transform.parent = null;
         StartCoroutine("DespawnWeapon");
