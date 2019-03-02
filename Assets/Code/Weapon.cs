@@ -11,7 +11,8 @@ public abstract class Weapon : MonoBehaviour
     internal SpriteRenderer _spriteRenderer;
     internal AudioSource _audioSource;
     internal bool _isActive = false;
-    internal float _despawnTimer = 3f;
+    internal float _DespawnTime = 3f;
+    internal float _despawnTimer;
     public Rigidbody2D _rb;
 
     
@@ -36,6 +37,7 @@ public abstract class Weapon : MonoBehaviour
 
     private IEnumerator DespawnWeapon()
     {
+        _despawnTimer = _DespawnTime;
         while ( _despawnTimer > 0 )
         {
             _despawnTimer -= Time.deltaTime;
