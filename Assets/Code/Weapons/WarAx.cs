@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WarAx : Weapon
 {
-    public float AttackLength = 2f;
-    public float CoolDownLength = 0.25f;
+    public float AttackLength;
+    public float CoolDownLength;
     private float _attackTimer;
     private float _coolDownTimer;
 
