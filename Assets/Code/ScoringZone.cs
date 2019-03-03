@@ -23,17 +23,15 @@ public class ScoringZone : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "Player")
-        {
-            coll.gameObject.GetComponent<Player>().NowScoring();
-        }
+        var possiblePlayer = coll.gameObject.GetComponent<Player>();
+        if ( possiblePlayer == null ) return;
+        coll.gameObject.GetComponent<Player>().NowScoring();
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.tag == "Player")
-        {
-            coll.gameObject.GetComponent<Player>().NotScoring();
-        }
+        var possiblePlayer = coll.gameObject.GetComponent<Player>();
+        if (possiblePlayer == null) return;
+        coll.gameObject.GetComponent<Player>().NotScoring();
     }
 }

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float Health;
     public Sprite AliveSprite;
     public Sprite DeadSprite;
-    public int ScoreScale;
+    //public int ScoreScale;
     //public bool FacingRight;
 
     private Rigidbody2D _rb;
@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         _carryPoint = transform.Find( "CarryPoint" ).gameObject;
 
         _initialHealth = Health;
-        ScoreScale = 1;
         _timeToScore = _scoringInterval;
         AssignPlayerColor();
     }
@@ -223,7 +222,8 @@ public class Player : MonoBehaviour
             if (_timeToScore <= 0)
             {
                 _timeToScore = _scoringInterval;
-                FindObjectOfType<ScoreManager>().ScorePoints(ScoreScale, PlayerNumber);
+                FindObjectOfType<ScoreManager>().ScorePoints(1, PlayerNumber);
+                GetComponent<ParticleSystem>().Emit(1);
             }
         }
     }
@@ -248,6 +248,7 @@ public class Player : MonoBehaviour
         GetComponent<AudioSource>().Play();
         gameObject.GetComponent<Rigidbody2D>().AddRelativeForce( new Vector2( -10, 10 ) );
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        _isScoring = false;
         Invoke("Respawn", 2f);
     }
 
