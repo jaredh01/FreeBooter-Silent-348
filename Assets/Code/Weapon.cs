@@ -22,17 +22,34 @@ public abstract class Weapon : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
         _rb = GetComponent < Rigidbody2D>();
+        StartIdleAnimation();
     }
 
     public abstract void UseWeapon();
 
     public abstract void UnuseWeapon();
 
+    public void PickupWeapon()
+    {
+        IsCarried = true;
+        GetComponentInChildren<ParticleSystem>().Stop();
+        StopCoroutine( "IdleAnimation" );
+        StopDespawn();
+    }
+
     public abstract void DropWeapon();
 
     public void StopDespawn()
     {
         StopAllCoroutines();
+    }
+
+    internal void StartIdleAnimation()
+    {
+        GetComponentInChildren<ParticleSystem>().Play();
+        GetComponent<SpriteRenderer>().flipX = false;
+        transform.rotation = Quaternion.Euler( Vector3.zero );
+        StartCoroutine( "IdleAnimation" );
     }
 
     private IEnumerator DespawnWeapon()
@@ -48,6 +65,17 @@ public abstract class Weapon : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private IEnumerator IdleAnimation()
+    {
+        float initialHeight = transform.position.y;
+        while ( true )
+        {
+            transform.position = new Vector3( transform.position.x,
+                initialHeight + Mathf.Lerp( 0, 0.2f, Mathf.PingPong( Time.time, 1 ) ),
+                transform.position.z );
+            yield return null;
+        }
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
         var temp = other.GetComponent<Player>();

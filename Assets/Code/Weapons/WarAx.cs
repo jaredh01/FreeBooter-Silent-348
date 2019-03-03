@@ -37,6 +37,7 @@ public class WarAx : Weapon
         CarryingPlayer = null;
         gameObject.transform.parent = null;
         StartCoroutine("DespawnWeapon");
+        StartIdleAnimation();
         // tweak to be in front of the player or thrown ahead
     }
 

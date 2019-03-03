@@ -40,6 +40,7 @@ public class Spear : Weapon
         gameObject.transform.position = CarryingPlayer.transform.position;
         CarryingPlayer = null;
         gameObject.transform.parent = null;
+        StartIdleAnimation();
         StartCoroutine("DespawnWeapon");
     }
 

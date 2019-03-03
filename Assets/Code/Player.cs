@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
         _isCarrying = true;
         weapon.IsCarried = true;
         weapon.CarryingPlayer = this;
-        weapon.StopDespawn();
+        weapon.PickupWeapon();
 
         weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
