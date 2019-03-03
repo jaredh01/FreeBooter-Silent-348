@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.LowLevel;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     private Respawner _respawner;
     private bool _isCarrying = false;
     private bool _isScoring = false;
+    private bool _RightTriggerDown = false;
     private float _initialHealth;
     private float _timeToScore;
     private static float _maxSpeed = 10f;
@@ -73,27 +75,50 @@ public class Player : MonoBehaviour
         }
         
         //when x button is pressed, swing weapon
-        if (Input.GetButtonDown("XButton" + PlayerNumber))
+        if ( Input.GetButtonDown( "XButton" + PlayerNumber ) )
         {
             if (_isCarrying)
             {
                 _carriedWeapon.UseWeapon(); // SUPPOSEDLY rotates but actually squishes
             }
         }
+           
+        //When right-trigger pressed down, and it wasn't already, attack
+        if ( !_RightTriggerDown && Input.GetAxis( "RightTrigger" + PlayerNumber ) > 0.2 )
+        {
+            if ( _isCarrying )
+            {
+                _RightTriggerDown = true;
+                _carriedWeapon.UseWeapon();
+            }
+        }
+
+        if ( _RightTriggerDown && Input.GetAxis( "RightTrigger" + PlayerNumber ) < 0.01 )
+        {
+            _RightTriggerDown = false;
+        }
 
         //when y button is pressed, check circle collider and weapon
         if (Input.GetButtonDown("YButton" + PlayerNumber))
         {
-            if (!DropWeapon())
+            Weapon droppedWeapon = null;
+            if ( _carriedWeapon != null )
             {
-                Collider2D[] others = Physics2D.OverlapCircleAll(_rb.position, 1); // we can tweak this radius as necessary
-                for (int i = 0; i < others.Length; i++) // what do we do about multiple weapons being in the circle collider? rn this will just get the first one
+                droppedWeapon = _carriedWeapon.GetComponent<Weapon>();
+                DropWeapon();
+            }
+            Collider2D[] others = Physics2D.OverlapCircleAll(_rb.position, 1.2f); // we can tweak this radius as necessary
+            foreach ( var weapon in others )
+            {
+                Weapon otherWeapon = weapon.gameObject.GetComponent<Weapon>();
+                if ( !otherWeapon ) continue;
+                if ( droppedWeapon && otherWeapon != droppedWeapon )
                 {
-                    Weapon otherWeapon = others[i].gameObject.GetComponent<Weapon>();
-                    if (otherWeapon)
-                    {
-                        PickUp(otherWeapon);
-                    }
+                    PickUp(otherWeapon);
+                }
+                else if ( !droppedWeapon )
+                {
+                    PickUp(otherWeapon);
                 }
             }
         }
@@ -127,12 +152,12 @@ public class Player : MonoBehaviour
     /// <returns>If pick up was successful.</returns>
     public void PickUp(Weapon weapon)
     {
-        if (_isCarrying || weapon.IsCarried) return;
+        if ( _isCarrying || weapon.IsCarried || Health < 0 ) return;
         _carriedWeapon = weapon;
         _isCarrying = true;
         weapon.IsCarried = true;
         weapon.CarryingPlayer = this;
-        weapon.StopDespawn();
+        weapon.PickupWeapon();
 
         weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
@@ -164,6 +189,7 @@ public class Player : MonoBehaviour
         {
             if ( attacker != null )
             {
+                /*
                 if (_rb.position.y >= -5 && _rb.position.y < 2)
                 {
                     attacker.ScoreScale = 2;
@@ -176,7 +202,14 @@ public class Player : MonoBehaviour
                 {
                     attacker.ScoreScale = 1;
                 }
-                FindObjectOfType<ScoreManager>().ScorePoints(1 * attacker.ScoreScale, attacker.PlayerNumber);
+                */
+                FindObjectOfType<ScoreManager>().ScorePoints(1, attacker.PlayerNumber);
+                attacker.GetComponent<ParticleSystem>().Emit(1);
+                DieAndRespawn();
+            }
+            else
+            {
+                FindObjectOfType<ScoreManager>().ScorePoints( -1, PlayerNumber );
                 DieAndRespawn();
             }
         }
@@ -213,6 +246,7 @@ public class Player : MonoBehaviour
         DropWeapon();
         _spriteRenderer.sprite = DeadSprite;
         GetComponent<AudioSource>().Play();
+        gameObject.GetComponent<Rigidbody2D>().AddRelativeForce( new Vector2( -10, 10 ) );
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Invoke("Respawn", 2f);
     }
@@ -238,16 +272,16 @@ public class Player : MonoBehaviour
         switch (PlayerNumber)
         {
             case 1:
-                playerColor = Color.red;
+                playerColor = new Color32(215, 74, 74, 255);
                 break;
             case 2:
-                playerColor = Color.blue;
+                playerColor = new Color32(95, 101, 234, 255);
                 break;
             case 3:
-                playerColor = Color.yellow;
+                playerColor = new Color32(251, 240, 151, 255);
                 break;
             case 4:
-                playerColor = Color.green;
+                playerColor = new Color32( 110, 246, 123, 255 );
                 break;
             default:
                 playerColor = Color.white;

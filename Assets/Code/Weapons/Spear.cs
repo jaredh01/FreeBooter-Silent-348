@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Spear : Weapon
 {
-    public float AttackLength = 0.5f;
-    public float CoolDownLength = 0.4f;
+    public float AttackLength;
+    public float CoolDownLength;
 
     private float _attackTimer;
     private float _coolDownTimer;
@@ -37,9 +37,10 @@ public class Spear : Weapon
         }
         gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
         IsCarried = false;
-        gameObject.transform.position = CarryingPlayer.transform.position + new Vector3( 0, 1, 0 );
+        gameObject.transform.position = CarryingPlayer.transform.position;
         CarryingPlayer = null;
         gameObject.transform.parent = null;
+        StartIdleAnimation();
         StartCoroutine("DespawnWeapon");
     }
 
