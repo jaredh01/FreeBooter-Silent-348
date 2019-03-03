@@ -218,6 +218,7 @@ public class Player : MonoBehaviour
         DropWeapon();
         _spriteRenderer.sprite = DeadSprite;
         GetComponent<AudioSource>().Play();
+        gameObject.GetComponent<Rigidbody2D>().AddRelativeForce( new Vector2( -10, 10 ) );
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Invoke("Respawn", 2f);
     }
