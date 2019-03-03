@@ -18,12 +18,15 @@ public class Player : MonoBehaviour
     private GameObject _carryPoint;
     private Respawner _respawner;
     private bool _isCarrying = false;
+    private bool _isScoring = false;
     private bool _RightTriggerDown = false;
     private float _initialHealth;
+    private float _timeToScore;
     private static float _maxSpeed = 10f;
     private static float _jumpHeight = 23f;
     private static float _epsilon = 0.1f;
     private static float _deadZone = 0.3f;
+    private static float _scoringInterval = 1f;
 
     internal void Start()
     {
@@ -34,12 +37,14 @@ public class Player : MonoBehaviour
 
         _initialHealth = Health;
         ScoreScale = 1;
+        _timeToScore = _scoringInterval;
         AssignPlayerColor();
     }
 
     internal void Update()
     {
         HandleInput();
+        Score();
     }
 
     internal void FixedUpdate()
@@ -210,6 +215,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Score()
+    {
+        if (_isScoring)
+        {
+            _timeToScore = _timeToScore - Time.deltaTime;
+            if (_timeToScore <= 0)
+            {
+                _timeToScore = _scoringInterval;
+                FindObjectOfType<ScoreManager>().ScorePoints(ScoreScale, PlayerNumber);
+            }
+        }
+    }
+
+    public void NowScoring()
+    {
+        _isScoring = true;
+    }
+
+    public void NotScoring()
+    {
+        _isScoring = false;
+    }
+
     /// <summary>
     /// Remove the player from the scene temporarily, and schedule an invocation of <see cref="Respawn"/>.
     /// </summary>
@@ -261,6 +289,8 @@ public class Player : MonoBehaviour
         }
         _spriteRenderer.color = playerColor;
     }
+
+
 
     /// <summary>
     /// Trigger is used to check for item pickup
