@@ -32,7 +32,7 @@ public abstract class Weapon : MonoBehaviour
     public void PickupWeapon()
     {
         IsCarried = true;
-        GetComponentInChildren<ParticleSystem>().Stop();
+        transform.Find("Sparkles").GetComponent<ParticleSystem>().Stop();
         StopCoroutine( "IdleAnimation" );
         StopDespawn();
     }
@@ -46,7 +46,7 @@ public abstract class Weapon : MonoBehaviour
 
     internal void StartIdleAnimation()
     {
-        GetComponentInChildren<ParticleSystem>().Play();
+        transform.Find("Sparkles").GetComponent<ParticleSystem>().Play();
         GetComponent<SpriteRenderer>().flipX = false;
         transform.rotation = Quaternion.Euler( Vector3.zero );
         StartCoroutine( "IdleAnimation" );
@@ -62,7 +62,10 @@ public abstract class Weapon : MonoBehaviour
         }
 
         SourcePoint.FreePoint();
-        Destroy(gameObject);
+        transform.Find("Despawn Smoke").GetComponent<ParticleSystem>().Emit(10);
+        GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+        GetComponent<BoxCollider2D>().enabled = false;
+        Destroy(gameObject, 0.4f);
     }
 
     private IEnumerator IdleAnimation()
