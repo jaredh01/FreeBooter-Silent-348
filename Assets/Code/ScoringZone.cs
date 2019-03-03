@@ -7,7 +7,6 @@ public class ScoringZone : MonoBehaviour
     private float _maxXPosition;
     private float _maxYPosition;
     private float _timeTillMove;
-    private static float _scoringInterval = 1f;
     private static float _movementTime = 15f;
 
 
@@ -20,5 +19,21 @@ public class ScoringZone : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "Player")
+        {
+            coll.gameObject.GetComponent<Player>().NowScoring();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "Player")
+        {
+            coll.gameObject.GetComponent<Player>().NotScoring();
+        }
     }
 }
