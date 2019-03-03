@@ -199,6 +199,7 @@ public class Player : MonoBehaviour
                 }
                 */
                 FindObjectOfType<ScoreManager>().ScorePoints(1, attacker.PlayerNumber);
+                attacker.GetComponent<ParticleSystem>().Emit(1);
                 DieAndRespawn();
             }
             else
