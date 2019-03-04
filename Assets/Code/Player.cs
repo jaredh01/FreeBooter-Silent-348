@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private static float _jumpHeight = 23f;
     private static float _epsilon = 0.1f;
     private static float _deadZone = 0.3f;
-    private static float _scoringInterval = 1f;
+    private static float _scoringInterval = 2f;
 
     internal void Start()
     {
@@ -236,6 +236,7 @@ public class Player : MonoBehaviour
     public void NotScoring()
     {
         _isScoring = false;
+        _timeToScore = _scoringInterval;
     }
 
     /// <summary>
