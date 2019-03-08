@@ -114,7 +114,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         GameIsOver = false;
-        SceneManager.LoadScene( "MainScene" );
+        var stageList = GameConfig.DetermineStageList();
+        var stageNumber = Random.Range( 0, stageList.Length );
+        SceneManager.LoadScene( stageList[stageNumber] );
     }
 
     /// <summary>
