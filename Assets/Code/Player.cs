@@ -18,15 +18,12 @@ public class Player : MonoBehaviour
     private GameObject _carryPoint;
     private Respawner _respawner;
     private bool _isCarrying = false;
-    private bool _isScoring = false;
     private bool _RightTriggerDown = false;
     private float _initialHealth;
-    private float _timeToScore;
     private static float _maxSpeed = 10f;
     private static float _jumpHeight = 23f;
     private static float _epsilon = 0.1f;
     private static float _deadZone = 0.3f;
-    private static float _scoringInterval = 2f;
 
     internal void Start()
     {
@@ -36,14 +33,12 @@ public class Player : MonoBehaviour
         _carryPoint = transform.Find( "CarryPoint" ).gameObject;
 
         _initialHealth = Health;
-        _timeToScore = _scoringInterval;
         AssignPlayerColor();
     }
 
     internal void Update()
     {
         HandleInput();
-        Score();
     }
 
     internal void FixedUpdate()
@@ -214,29 +209,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Score()
+    public void ScoreAPoint()
     {
-        if (_isScoring)
-        {
-            _timeToScore = _timeToScore - Time.deltaTime;
-            if (_timeToScore <= 0)
-            {
-                _timeToScore = _scoringInterval;
-                FindObjectOfType<ScoreManager>().ScorePoints(1, PlayerNumber);
-                GetComponent<ParticleSystem>().Emit(1);
-            }
-        }
-    }
-
-    public void NowScoring()
-    {
-        _isScoring = true;
-    }
-
-    public void NotScoring()
-    {
-        _isScoring = false;
-        _timeToScore = _scoringInterval;
+        FindObjectOfType<ScoreManager>().ScorePoints(1, PlayerNumber);
+        GetComponent<ParticleSystem>().Emit(1);
     }
 
     /// <summary>
@@ -249,7 +225,6 @@ public class Player : MonoBehaviour
         GetComponent<AudioSource>().Play();
         gameObject.GetComponent<Rigidbody2D>().AddRelativeForce( new Vector2( -10, 10 ) );
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        _isScoring = false;
         Invoke("Respawn", 2f);
     }
 
