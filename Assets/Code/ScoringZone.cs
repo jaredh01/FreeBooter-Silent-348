@@ -26,6 +26,13 @@ public class ScoringZone : MonoBehaviour
     void Update()
     {
         if ( _scoringPlayer == null ) return;
+        if ( _scoringPlayer.Health < 0 )
+        {
+            Debug.Log("F");
+            _scoringPlayer = null;
+            ResetScoreBar();
+            ScoringProgressIndicator.SetActive(false);
+        }
         if ( _scoringTimer > 0 )
         {
             _scoringTimer -= Time.fixedDeltaTime;
@@ -63,7 +70,6 @@ public class ScoringZone : MonoBehaviour
     void OnTriggerStay2D( Collider2D coll )
     {
         if ( _scoringPlayer != null ) return;
-        Debug.Log("OwO"  );
         var possiblePlayer = coll.gameObject.GetComponent<Player>();
         if ( possiblePlayer == null ) return;
         _scoringPlayer = possiblePlayer;
