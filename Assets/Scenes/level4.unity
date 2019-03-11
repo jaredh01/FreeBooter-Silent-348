@@ -612,6 +612,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.5441808
       objectReference: {fileID: 0}
+    - target: {fileID: 6858387418175195584, guid: 94fafbfcac8033940848b13f4236119b,
+        type: 3}
+      propertyPath: TimeToScore
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94fafbfcac8033940848b13f4236119b, type: 3}
 --- !u!1001 &145114690
@@ -6561,7 +6566,7 @@ PrefabInstance:
     - target: {fileID: 1369182339671483370, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.51
+      value: -7.58
       objectReference: {fileID: 0}
     - target: {fileID: 1369182339671483370, guid: 6d3abf06c856b3247b9264fef6693bd6,
         type: 3}
