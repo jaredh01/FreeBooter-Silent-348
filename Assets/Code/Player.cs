@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
                 }
                 */
                 FindObjectOfType<ScoreManager>().ScorePoints(1, attacker.PlayerNumber);
-                GetComponent<ParticleSystemRenderer>().material = PlusOneMaterial;
+                attacker.GetComponent<ParticleSystemRenderer>().material = PlusOneMaterial;
                 attacker.GetComponent<ParticleSystem>().Emit(1);
                 DieAndRespawn();
             }
