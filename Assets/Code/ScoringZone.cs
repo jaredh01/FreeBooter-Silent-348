@@ -35,7 +35,7 @@ public class ScoringZone : MonoBehaviour
         }
         if ( _scoringTimer > 0 )
         {
-            _scoringTimer -= Time.fixedDeltaTime;
+            _scoringTimer -= Time.deltaTime;
             var lerpVar = (TimeToScore - _scoringTimer) / TimeToScore;
             //6.8 is a magic number sadly
             ProgressBar.transform.localScale = new Vector3( Mathf.Lerp( 0, 6.8f, lerpVar ),
