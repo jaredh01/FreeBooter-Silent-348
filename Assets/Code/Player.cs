@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float Health;
     public Sprite AliveSprite;
     public Sprite DeadSprite;
+    public Material PlusOneMaterial;
+    public Material MinusOneMaterial;
     //public int ScoreScale;
     //public bool FacingRight;
 
@@ -204,6 +206,8 @@ public class Player : MonoBehaviour
             else
             {
                 FindObjectOfType<ScoreManager>().ScorePoints( -1, PlayerNumber );
+                GetComponent<ParticleSystem>().GetComponent<Renderer>().material = MinusOneMaterial;
+                GetComponent<ParticleSystem>().Emit(1);
                 DieAndRespawn();
             }
         }
@@ -212,6 +216,7 @@ public class Player : MonoBehaviour
     public void ScoreAPoint()
     {
         FindObjectOfType<ScoreManager>().ScorePoints(1, PlayerNumber);
+        GetComponent<ParticleSystem>().GetComponent<Renderer>().material = PlusOneMaterial;
         GetComponent<ParticleSystem>().Emit(1);
     }
 
