@@ -6,9 +6,9 @@ public static class GameConfig
 {
     public static int NumberOfPlayers = 4;
 
-    public static int[] StagesFor2P = {1, 2};
-    public static int[] StagesFor3P = {1, 2};
-    public static int[] StagesFor4P = {1, 2};
+    public static int[] StagesFor2P = {1, 3};
+    public static int[] StagesFor3P = {1, 2, 3};
+    public static int[] StagesFor4P = {1, 2, 3};
 
     public static int[] DetermineStageList()
     {
