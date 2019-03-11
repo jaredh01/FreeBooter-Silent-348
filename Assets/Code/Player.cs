@@ -158,7 +158,6 @@ public class Player : MonoBehaviour
         weapon.gameObject.transform.parent = _carryPoint.transform;
         weapon.gameObject.transform.position = _carryPoint.transform.position;
         weapon.gameObject.transform.rotation = _carryPoint.transform.rotation;
-        weapon._rb.position = _carryPoint.transform.position; // this is new
     }
 
     /// <summary>

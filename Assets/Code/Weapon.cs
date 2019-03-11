@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour
     internal bool _isActive = false;
     internal float _DespawnTime = 3f;
     internal float _despawnTimer;
-    public Rigidbody2D _rb;
+    //public Rigidbody2D _rb;
 
     
 
@@ -21,7 +21,6 @@ public abstract class Weapon : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
-        _rb = GetComponent < Rigidbody2D>();
         StartIdleAnimation();
     }
 
