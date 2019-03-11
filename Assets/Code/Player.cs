@@ -206,7 +206,7 @@ public class Player : MonoBehaviour
             else
             {
                 FindObjectOfType<ScoreManager>().ScorePoints( -1, PlayerNumber );
-                GetComponent<ParticleSystem>().GetComponent<Renderer>().material = MinusOneMaterial;
+                GetComponent<ParticleSystemRenderer>().material = MinusOneMaterial;
                 GetComponent<ParticleSystem>().Emit(1);
                 DieAndRespawn();
             }
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
     public void ScoreAPoint()
     {
         FindObjectOfType<ScoreManager>().ScorePoints(1, PlayerNumber);
-        GetComponent<ParticleSystem>().GetComponent<Renderer>().material = PlusOneMaterial;
+        GetComponent<ParticleSystemRenderer>().material = PlusOneMaterial;
         GetComponent<ParticleSystem>().Emit(1);
     }
 
